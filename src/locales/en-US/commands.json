@@ -1,0 +1,39 @@
+{
+    "account": {
+        "description": "View your account",
+        "my_panel": "My panel"
+    },
+    "botinfo": {
+        "description": "Get informations about the bot",
+        "stats.title": "Statistics",
+        "stats.latency": "Latency",
+        "stats.creation": "Creation",
+        "stats.uptime": "Uptime",
+        "admins.title": "Administrators"
+    },
+    "help": {
+        "description": "Get help on the bot",
+        "err_no_commands": "This category has no commands!",
+        "selector.home.label": "Home",
+        "help_menu": "Help menu",
+        "home.desc": "Choose the category for which you wish to obtain the commands list.",
+        "home.tickets": "You can also open a ticket in {{channel}} if necessary.",
+        "home.links.title": "Useful links",
+        "home.links.website": "Website",
+        "home.links.panel": "Panel"
+    },
+    "ping": {
+        "description": "Get the bot latency",
+        "pings.discord_api": "Discord API",
+        "pings.message": "Message"
+    },
+    "config": {
+        "description": "Access the configuration"
+    },
+    "eval": {
+        "description": "Evaluate code"
+    },
+    "panels": {
+        "description": "Create panels"
+    }
+}
