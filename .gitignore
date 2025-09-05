@@ -11,3 +11,6 @@ coverage
 
 # Build Outputs
 dist
+
+# misc
+*.zip
