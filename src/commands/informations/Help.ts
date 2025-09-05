@@ -39,7 +39,7 @@ export default class extends Command {
         if (!selectedOption) return;
 
         if (selectedOption.value === "home") {
-            await interaction.reply({
+            await interaction.update({
                 embeds: [this.createHomeEmbed(lang)],
                 components: this.createComponents(lang, interaction.user.id),
             });
@@ -81,7 +81,7 @@ export default class extends Command {
                 {
                     name: lang.t("home.links.title"),
                     value:
-                        `> [${lang.t("home.links.website")}](${this.config.domain})` +
+                        `> [${lang.t("home.links.website")}](${this.config.domainURL})` +
                         `\n> [${lang.t("home.links.panel")}](${this.config.panelURL})`,
                 },
             ],
@@ -111,7 +111,7 @@ export default class extends Command {
             },
             {
                 label: lang.gt("common:commands.categories.informations"),
-                emoji: "ℹ",
+                emoji: "ℹ️",
                 value: "informations",
                 category: CommandCategory.Informations,
             },

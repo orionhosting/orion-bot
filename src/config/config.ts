@@ -14,5 +14,6 @@ export default {
     supportGuildId: "1306734190238371860",
     ticketChannelId: "1307061230145507410",
     domain: "orion.lmcgroup.xyz",
+    domainURL: "https://orion.lmcgroup.xyz",
     panelURL: "https://panel.orion.lmcgroup.xyz",
 };
