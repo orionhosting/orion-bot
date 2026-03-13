@@ -9,7 +9,8 @@
         },
         "baseUrl": "./",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["src/*"],
+            "@prisma-generated/*": ["generated/prisma/*"]
         },
         "target": "esnext"
     },
