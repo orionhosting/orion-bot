@@ -11,14 +11,15 @@
         "outDir": "dist",
         "incremental": true,
         "esModuleInterop": true,
-        "module": "CommonJS",
-        "moduleResolution": "node",
+        "module": "esnext",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "baseUrl": "./",
         "sourceMap": false,
         "inlineSources": false,
         "paths": {
+            "@prisma-generated/*": ["generated/prisma/*"],
             "@/*": ["src/*"]
         },
 

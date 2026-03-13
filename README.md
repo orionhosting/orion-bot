@@ -1,7 +1,7 @@
-# Bot
+# Orion Bot
 
-This repository is the source code of the bot.
+The source code of the Orion Bot.
 
-## Development
+## API
 
-Please run `npm run format` -> `npm run lint` -> `npm run tslint` before pushing changes.
+The bot API is used by the dashboard to display more informations.
