@@ -11,7 +11,7 @@ export default class extends Event {
         const formatted = Object.entries(rateLimitData)
             .map(([k, v]) => `${k}: ${v}`)
             .join("\n");
-        console.warn("RateLimited:");
-        console.warn(formatted);
+        this.client.logger.warn("RateLimited:");
+        this.client.logger.warn(formatted);
     }
 }

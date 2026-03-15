@@ -8,12 +8,11 @@ export default class extends Event {
     };
 
     public async handle(): Promise<void> {
-        const guild = this.client.guilds.cache.get(this.config.supportGuildId);
-        if (!guild) {
-            console.error("Cannot find the support guild");
-            process.exit(1);
-        }
+        // This will crash the process if the guild is not found
+        this.client.getSupportGuild();
 
-        console.log("Client ready");
+        this.client.logger.info("Client ready");
+
+        this.client.services.onReady();
     }
 }

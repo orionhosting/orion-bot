@@ -7,6 +7,6 @@ export default class extends Event {
     };
 
     public handle(err: Error, origin: string): void {
-        this.client.remoteLogger.sendError(`UncaughtException:${origin}`, err);
+        this.client.monitor.captureException(err, `UncaughtException:${origin}`);
     }
 }

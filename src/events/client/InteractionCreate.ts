@@ -14,15 +14,12 @@ export default class extends Event {
     };
 
     public async handle(interaction: Interaction): Promise<void> {
-        if (!interaction.inCachedGuild()) return;
-        if (!interaction.channel) return;
-
         const lang = Localizations.getLocale(interaction.locale, "events", "interactionCreate");
 
         if (interaction.isChatInputCommand()) {
             const command = this.client.commands.get(interaction.commandName);
-            if (!command) return console.error(`Command ${interaction.commandName} not found`);
-            if (typeof command.handleSlash !== "function") return;
+            if (!command) return this.client.logger.warn(`Command ${interaction.commandName} not found`);
+            if (typeof command.handleCommand !== "function") return;
 
             if (!command.enabled) {
                 await interaction.reply({
@@ -38,7 +35,7 @@ export default class extends Event {
             }
 
             try {
-                console.log(
+                this.client.logger.info(
                     `[Command] ${interaction.commandName}: ${interaction.user.username} (${interaction.user.id})`,
                 );
                 this.client.remoteLogger.sendInfo(
@@ -46,12 +43,12 @@ export default class extends Event {
                     `\`${interaction.user.username} (${interaction.user.id})\` has used \`/${this._getFullCommandInput(interaction)}\``,
                 );
 
-                await command.handleSlash({
+                await command.handleCommand({
                     interaction,
                     lang: Localizations.getLocale(interaction.locale, "commands", command.name),
                 });
             } catch (err) {
-                this.client.errors.create(__filename, "Command", err);
+                this.client.monitor.captureException(err, "Command");
 
                 if (!interaction.replied && !interaction.deferred) {
                     await interaction.reply({
@@ -65,7 +62,7 @@ export default class extends Event {
 
         if (interaction.isContextMenuCommand()) {
             const command = this.client.commands.get(interaction.commandName);
-            if (!command) return console.error(`ContextMenu ${interaction.commandName} not found`);
+            if (!command) return this.client.logger.warn(`ContextMenu ${interaction.commandName} not found`);
             if (typeof command.handleContextMenu !== "function") return;
 
             if (!command.enabled) {
@@ -84,7 +81,7 @@ export default class extends Event {
             }
 
             try {
-                console.log(
+                this.client.logger.info(
                     `[ContextMenu] ${interaction.commandName}: ${interaction.user.username} (${interaction.user.id})`,
                 );
                 await command.handleContextMenu({
@@ -92,7 +89,7 @@ export default class extends Event {
                     lang: Localizations.getLocale(interaction.locale, "commands", command.name),
                 });
             } catch (err) {
-                this.client.errors.create(__filename, "Command", err);
+                this.client.monitor.captureException(err, "Command");
             }
             return;
         }
@@ -113,7 +110,7 @@ export default class extends Event {
                     lang: Localizations.getLocale(interaction.locale, "commands", command.name),
                 });
             } catch (err) {
-                this.client.errors.create(__filename, "Command", err);
+                this.client.monitor.captureException(err, "Command");
             }
             return;
         }
@@ -132,7 +129,7 @@ export default class extends Event {
                     lang: Localizations.getLocale(interaction.locale, "commands", command.name),
                 });
             } catch (err) {
-                this.client.errors.create(__filename, "Command", err);
+                this.client.monitor.captureException(err, "Command");
             }
             return;
         }
