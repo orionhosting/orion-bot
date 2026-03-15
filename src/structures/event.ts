@@ -1,10 +1,10 @@
-import type { Pterobot } from "./Pterobot";
 import { config, colors, emojis } from "@/config/index";
+import type { OrionBot } from "./bot";
 
 export interface EventFile {
     default: {
         readonly data: EventData;
-        new (client: Pterobot, data: EventData, filepath: string): Event;
+        new (client: OrionBot, data: EventData, filepath: string): Event;
     };
 }
 
@@ -32,7 +32,7 @@ export abstract class Event implements EventData {
     public readonly emojis: typeof emojis;
 
     public constructor(
-        public readonly client: Pterobot,
+        public readonly client: OrionBot,
         data: EventData,
         filepath: string,
     ) {

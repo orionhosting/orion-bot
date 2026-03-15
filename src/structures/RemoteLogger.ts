@@ -1,9 +1,9 @@
-import { Routes, type APIEmbed, type WebhookMessageCreateOptions } from "discord.js";
+import { MessageCreateOptions, Routes, type APIEmbed, type WebhookMessageCreateOptions } from "discord.js";
 import { colors } from "@/config/index";
-import type { Pterobot } from "./Pterobot";
+import type { OrionBot } from "./bot";
 
 export default class RemoteLogger {
-    public constructor(public readonly client: Pterobot) {}
+    public constructor(public readonly client: OrionBot) {}
 
     public async sendLog(message: string | WebhookMessageCreateOptions) {
         await this.sendMessage(message);
@@ -37,14 +37,13 @@ export default class RemoteLogger {
     }
 
     public async sendInfo(type: "log" | "warn" | "error", message: string) {
-        const emoji = type === "log" ? ":blue_circle:" : type === "warn" ? ":orange_circle:" : ":red_circle:";
-
+        const emoji = type === "log" ? "🟢" : type === "warn" ? "🟠" : "🔴";
         await this.sendMessage(`${emoji} ${message}`);
     }
 
     public async sendMessage(message: string | WebhookMessageCreateOptions) {
         if (!this.client.readyTimestamp) {
-            console.warn(`Unable to send log message because client is not ready: ${message}`, JSON.stringify(message));
+            this.client.logger.warn(message, `Unable to send log message because client is not ready: ${message}`);
             return;
         }
 
@@ -53,16 +52,17 @@ export default class RemoteLogger {
         }
 
         if (process.env.NODE_ENV !== "production") {
-            console.error(message);
+            this.client.logger.info(message);
             return;
         }
 
         try {
-            let messagePayload;
+            let messagePayload: MessageCreateOptions;
 
             if (typeof message === "string") {
                 messagePayload = {
                     content: `\`[LOG]\` ${message}`.slice(0, 2000),
+                    allowedMentions: { parse: [] },
                 };
             } else {
                 messagePayload = message;
@@ -74,7 +74,7 @@ export default class RemoteLogger {
                 auth: false,
             });
         } catch (err) {
-            console.error("RemoteLogger error", err);
+            this.client.logger.error(err, "RemoteLogger error");
         }
     }
 }
