@@ -1,31 +1,34 @@
-import { ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, type APIEmbed } from "discord.js";
+import { inspect } from "node:util";
+import { ModalBuilder, TextInputBuilder, TextInputStyle, type APIEmbed, LabelBuilder } from "discord.js";
+import { config } from "@/config";
 import {
     Command,
     CommandCategory,
     type ComponentHandlerContext,
     type CommandData,
-    type SlashHandlerContext,
+    type CommandHandlerContext,
 } from "@/structures/index";
 
 export default class extends Command {
     public static override readonly data: CommandData = {
         name: "eval",
         category: CommandCategory.Private,
+        description: "Evaluate a script",
+        guilds: [config.supportGuildId],
         ownerOnly: true,
     };
 
-    public override async handleSlash({ interaction }: SlashHandlerContext) {
+    public override async handleCommand({ interaction }: CommandHandlerContext) {
         const modal = new ModalBuilder()
             .setCustomId("eval-modal")
             .setTitle("Eval")
-            .setComponents(
-                new ActionRowBuilder<TextInputBuilder>().setComponents(
-                    new TextInputBuilder()
-                        .setCustomId("code")
-                        .setLabel("Code")
-                        .setRequired(true)
-                        .setStyle(TextInputStyle.Paragraph),
-                ),
+            .addLabelComponents(
+                new LabelBuilder()
+                    .setLabel("Code")
+                    .setDescription("The code to run")
+                    .setTextInputComponent(
+                        new TextInputBuilder().setCustomId("code").setRequired(true).setStyle(TextInputStyle.Paragraph),
+                    ),
             );
 
         await interaction.showModal(modal);
@@ -37,8 +40,17 @@ export default class extends Command {
         const code = interaction.fields.getTextInputValue("code");
         await interaction.deferReply();
 
-        // oxlint-disable-next-line no-eval
-        const result: unknown = await eval(`(async()=>{${code}})()`);
+        const stringify = (result: unknown) => `\`\`\`\n${inspect(result)}\n\`\`\``;
+        let result;
+
+        try {
+            // oxlint-disable-next-line no-eval
+            const evaluated = await eval(`(async()=>{${code}})()`);
+            result = stringify(evaluated);
+        } catch (err) {
+            result = "Error:" + `\n${stringify(err instanceof Error ? err.stack : err)}`;
+        }
+
         const embed: APIEmbed = {
             color: this.colors.primary.int,
             fields: [
@@ -47,8 +59,8 @@ export default class extends Command {
                     value: `\`\`\`\n${`${code}`.slice(0, 1024)}\n\`\`\``,
                 },
                 {
-                    name: `Résultat (${typeof result})`,
-                    value: `\`\`\`\n${`${JSON.stringify(result, null, 2)}`.slice(0, 1024)}\n\`\`\``,
+                    name: `Result (${typeof result})`,
+                    value: result,
                 },
             ],
         };
