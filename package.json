@@ -4,10 +4,10 @@
     "version": "1.0.0",
     "private": true,
     "license": "Apache-2.0",
-    "author": "sealtra",
+    "author": "voctal",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/the-lmc-group/orion-bot.git"
+        "url": "git+https://github.com/octarahq/orion-bot.git"
     },
     "type": "commonjs",
     "main": "dist/index.js",
