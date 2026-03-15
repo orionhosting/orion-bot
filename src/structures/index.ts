@@ -1,4 +1,4 @@
 export * from "./command";
 export * from "./event";
-export * from "./Pterobot";
+export * from "./bot";
 export * from "./localizations/Localizations";

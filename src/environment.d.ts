@@ -1,5 +1,5 @@
-import type { z } from "zod";
-import type { envSchema } from "./validation/schemas";
+import { z } from "zod";
+import { envSchema } from "./validation/env";
 
 declare global {
     namespace NodeJS {

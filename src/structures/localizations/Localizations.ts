@@ -11,6 +11,7 @@ export interface LocaleContext<Namespace extends string = string, Prefix extends
     gt: TFunction<Namespace, Prefix>;
     ngt: <Opt extends TOptions>(key: string, options?: Opt) => ReturnType<TFunction<Namespace, Prefix>> | null;
     mapT: typeof Localizations.mapT;
+    mapGT: typeof Localizations.mapT;
 }
 
 interface LocalizationOptions {
@@ -122,6 +123,7 @@ export class Localizations {
                 return null;
             },
             mapT: key => Localizations.mapT(`${namespace ? `${namespace}:` : ""}${prefix ? `${prefix}.` : ""}${key}`),
+            mapGT: key => Localizations.mapT(key),
         };
 
         Localizations._cachedContexts.set(key, props);

@@ -1,42 +1,86 @@
+import assert from "node:assert";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import type { Express } from "express";
-import { Client, Collection, type ClientOptions } from "discord.js";
 import { PlumeAPI } from "@sodiumlabs/plume-api";
-import { DatabaseManager, type Manager } from "@/database/index";
-import buildAPI from "@/api/index";
+import { Client, Collection, type ClientOptions } from "discord.js";
+import pino, { Logger } from "pino";
+import { startAPI } from "@/api";
+import { config } from "@/config";
+import { OrionAPIClient } from "@/modules/orion-api";
+import { Cache } from "./cache";
 import type { Command, CommandFile } from "./command";
 import { EventType, type Event, type EventFile } from "./event";
+import { Localizations } from "./localizations/Localizations";
+import Monitor from "./Monitor";
 import RemoteLogger from "./RemoteLogger";
-import ErrorManager from "./ErrorManager";
+import ServiceManager from "./services/service-manager";
 
-export class Pterobot<R extends boolean = boolean> extends Client<R> {
-    public readonly db: DatabaseManager;
+/**
+ * The Orion Bot main client.
+ */
+export class OrionBot<R extends boolean = boolean> extends Client<R> {
+    public readonly logger: Logger;
     public readonly remoteLogger: RemoteLogger;
-    public readonly errors: ErrorManager;
+    public readonly monitor: Monitor;
     public readonly commands: Collection<string, Command>;
     public readonly events: Collection<string, Event>;
-    public readonly api: Express;
     public readonly plumeAPI: PlumeAPI;
-    private _manager: Manager | null = null;
+    public readonly services: ServiceManager;
+    public readonly cache: Cache;
+    public readonly orionAPI: OrionAPIClient;
 
     public constructor(options: ClientOptions) {
         super(options);
 
-        this.db = new DatabaseManager(this);
+        this.logger = pino({
+            level: "debug",
+            transport: {
+                targets: [
+                    {
+                        target: "pino-pretty",
+                        options: {
+                            colorize: true,
+                            ignore: "pid,hostname",
+                            translateTime: "HH:MM:ss.l",
+                        },
+                    },
+                    {
+                        target: "pino/file",
+                        options: {
+                            destination: join("logs", "app.log"),
+                            mkdir: true,
+                        },
+                    },
+                ],
+            },
+        });
         this.remoteLogger = new RemoteLogger(this);
-        this.errors = new ErrorManager(this);
+        this.monitor = new Monitor(this);
+        this.cache = new Cache();
         this.commands = new Collection();
         this.events = new Collection();
-        this.api = buildAPI();
         this.plumeAPI = new PlumeAPI();
+        this.orionAPI = new OrionAPIClient({ url: config.apiURL, key: process.env.ADMIN_API_TOKEN });
+        this.services = new ServiceManager(this);
     }
 
-    public get manager() {
-        if (!this._manager) throw new Error("No manager available");
-        return this._manager;
+    /**
+     * Get a locale context.
+     */
+    public getLocale = Localizations.getLocale;
+
+    /**
+     * Get the bot support guild.
+     */
+    public getSupportGuild() {
+        const guild = this.guilds.cache.get(config.supportGuildId);
+        assert(guild, "support guild not found");
+        return guild;
     }
 
+    /**
+     * Load all commands from the `commands` folder.
+     */
     public async loadCommands(): Promise<void> {
         const categoriesFolderPath = join(process.cwd(), "dist", "commands");
         for (const folder of readdirSync(categoriesFolderPath)) {
@@ -48,11 +92,14 @@ export class Pterobot<R extends boolean = boolean> extends Client<R> {
                 const command = new ImportedCommand(this, ImportedCommand.data, filePath);
 
                 this.commands.set(command.name, command);
-                console.log(`Loaded command ${command.name}`);
+                this.logger.info(`Loaded command ${command.name}`);
             }
         }
     }
 
+    /**
+     * Load and listen to all events from the `events` folder.
+     */
     public async loadEvents(): Promise<void> {
         const categoriesFolderPath = join(process.cwd(), "dist", "events");
         for (const folder of readdirSync(categoriesFolderPath)) {
@@ -71,7 +118,7 @@ export class Pterobot<R extends boolean = boolean> extends Client<R> {
                             if (!("handle" in event) || typeof event.handle !== "function") return;
                             await event.handle(...args);
                         } catch (err) {
-                            this.remoteLogger.sendError("Event", err as Error);
+                            this.monitor.captureException(err, "Event");
                         }
                     });
                 };
@@ -91,25 +138,20 @@ export class Pterobot<R extends boolean = boolean> extends Client<R> {
                     }
                 }
 
-                console.log(`Loaded event ${event.name}`);
+                this.logger.info(`Loaded event ${event.name}`);
             }
         }
     }
 
+    /**
+     * Start the bot and all services.
+     */
     public async start(): Promise<void> {
-        await this.loadCommands();
-        await this.loadEvents();
-        // await this.db.connect();
-        // this._manager = (await ManagerModel.findOne({})) || new ManagerModel();
-
-        this.api.listen(Number(process.env.PORT), (...errs) => {
-            if (errs.length) {
-                console.error(errs);
-            }
-
-            console.log("API listening");
-        });
+        await Promise.all([this.loadCommands(), this.loadEvents()]);
 
         await this.login(process.env.DISCORD_TOKEN);
+        await startAPI(this);
+
+        this.logger.info("Bot started");
     }
 }
