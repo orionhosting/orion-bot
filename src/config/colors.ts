@@ -8,4 +8,7 @@ export default {
     orange: {
         int: 0xffa700,
     },
+    green: {
+        int: 0x0fcc45,
+    },
 };
