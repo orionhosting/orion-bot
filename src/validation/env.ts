@@ -7,6 +7,6 @@ export const envSchema = z.object({
     DISCORD_TOKEN: z.string(),
     LOGS_WEBHOOK_ID: z.string(),
     LOGS_WEBHOOK_TOKEN: z.string(),
-    PTERO_API_KEY: z.string(),
-    MONGODB_URI: z.string(),
+    GEMINI_KEY: z.string(),
+    ADMIN_API_TOKEN: z.string(),
 });
