@@ -1,27 +1,45 @@
 import assert from "node:assert";
 import fastifyRatelimit from "@fastify/rate-limit";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
 import { Time } from "@sodiumlabs/duration";
 import Fastify from "fastify";
 import {
     hasZodFastifySchemaValidationErrors,
     isResponseSerializationError,
+    jsonSchemaTransform,
+    jsonSchemaTransformObject,
     serializerCompiler,
     validatorCompiler,
     ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import z from "zod";
+import { version } from "@/../package.json";
 import { prisma } from "@/database/prisma";
 import { OrionBot } from "@/structures";
+
+let swagger: ReturnType<ReturnType<typeof Fastify>["swagger"]> | null = null;
 
 export const startAPI = async (client: OrionBot) => {
     const fastify = await createFastify(client);
 
-    fastify.get("/ping", {}, async (_, reply) => reply.send());
-
     fastify.get(
-        "/users/:id/boosts",
+        "/api/ping",
         {
             schema: {
+                tags: ["General"],
+                summary: "Ping the API",
+            },
+        },
+        async (_, reply) => reply.send(),
+    );
+
+    fastify.get(
+        "/api/users/:id/boosts",
+        {
+            schema: {
+                tags: ["Users"],
+                summary: "Get the boosting state of the user",
                 headers: z.object({
                     authorization: z.string().max(100),
                 }),
@@ -55,9 +73,11 @@ export const startAPI = async (client: OrionBot) => {
     );
 
     fastify.get(
-        "/users/:id/ad",
+        "/api/users/:id/ad",
         {
             schema: {
+                tags: ["Users"],
+                summary: "Get the ad state of the user",
                 params: z.object({ id: z.string().max(20) }),
                 response: {
                     200: z.array(
@@ -112,6 +132,8 @@ export const startAPI = async (client: OrionBot) => {
     );
 
     await fastify.ready();
+    swagger = fastify.swagger();
+
     await fastify.listen({ host: "0.0.0.0", port: Number(process.env.PORT) });
 };
 
@@ -156,6 +178,33 @@ const createFastify = async (client: OrionBot) => {
         max: 300,
         timeWindow: 60_000,
     });
+
+    // OpenAPI
+
+    await fastify.register(fastifySwagger, {
+        openapi: {
+            openapi: "3.1.0",
+            servers: [
+                {
+                    url: `${process.env.NODE_ENV === "production" ? "https://bot.orionhost.xyz" : `http://localhost:${process.env.PORT}`}/api`,
+                    description: "The base API URL",
+                },
+            ],
+            info: {
+                title: "Orion Bot API",
+                version,
+            },
+        },
+        transform: jsonSchemaTransform,
+        transformObject: jsonSchemaTransformObject,
+    });
+
+    await fastify.register(fastifySwaggerUI, {
+        routePrefix: "/docs",
+        theme: { title: "API Documentation" },
+    });
+
+    fastify.get("/api/docs/openapi.json", (_, reply) => reply.send(swagger));
 
     return fastify;
 };
