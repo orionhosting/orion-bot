@@ -1,39 +1,32 @@
 {
     "account": {
-        "description": "View your account",
-        "my_panel": "My panel"
+        "description": "Access your account",
+        "card.title.your_account": "Your account",
+        "card.content.credits": "You have **{{amount}}** credits.",
+        "no_account.content.guide": "You do not have an account, create one by logging in to the dashboard.",
+        "no_account.buttons.create_account": "Create an account"
     },
-    "botinfo": {
-        "description": "Get informations about the bot",
-        "stats.title": "Statistics",
-        "stats.latency": "Latency",
-        "stats.creation": "Creation",
-        "stats.uptime": "Uptime",
-        "admins.title": "Administrators"
+    "docs": {
+        "description": "Access the documentation",
+        "options.page.description": "The documentation page",
+        "err_invalid_page": "Invalid page!"
     },
     "help": {
-        "description": "Get help on the bot",
-        "err_no_commands": "This category has no commands!",
-        "selector.home.label": "Home",
-        "help_menu": "Help menu",
-        "home.desc": "Choose the category for which you wish to obtain the commands list.",
-        "home.tickets": "You can also open a ticket in {{channel}} if necessary.",
-        "home.links.title": "Useful links",
-        "home.links.website": "Website",
-        "home.links.panel": "Panel"
+        "description": "Get help on Orion",
+        "title": "Help",
+        "hosting.title": "Hosting",
+        "hosting.description": "Orion Hosting is a free and reliable hosting service to launch your projects without spending a single penny.",
+        "hosting.buttons.create_free_server": "Create a free server",
+        "services.title": "Our Services",
+        "services.website": "Website",
+        "services.buttons.join_support": "Join the support",
+        "services.buttons.add_bot": "Add the bot to your account"
     },
     "ping": {
-        "description": "Get the bot latency",
-        "pings.discord_api": "Discord API",
-        "pings.message": "Message"
-    },
-    "config": {
-        "description": "Access the configuration"
-    },
-    "eval": {
-        "description": "Evaluate code"
-    },
-    "panels": {
-        "description": "Create panels"
+        "description": "Get the status of our services",
+        "pinging": "Calculating the latency of our services...",
+        "services.title": "Services latencies",
+        "services.more": "Use the status page for more details about our services.",
+        "bot.title": "Bot Discord"
     }
 }

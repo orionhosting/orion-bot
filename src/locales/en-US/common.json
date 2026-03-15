@@ -2,5 +2,11 @@
     "errors.err_unknown": "An unknown error occurred.",
     "errors.err_menu_owner": "You cannot interact with this menu!",
     "commands.no_description": "No description",
-    "commands.categories.informations": "Informations"
+    "commands.categories.informations": "Informations",
+    "dashboard": "Dashboard",
+    "panel": "Panel",
+    "documentation": "Documentation",
+    "status": "Status",
+    "status_page": "Status Page",
+    "offline": "Offline"
 }
