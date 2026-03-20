@@ -79,7 +79,7 @@ export default class extends Command {
                     .setButtonAccessory(
                         new ButtonBuilder()
                             .setStyle(ButtonStyle.Link)
-                            .setURL(this.config.docsURL)
+                            .setURL(this.config.domainURL)
                             .setEmoji({ id: this.emojis.logoId })
                             .setLabel("Website / Dashboard"),
                     ),
@@ -93,7 +93,7 @@ export default class extends Command {
                     .setButtonAccessory(
                         new ButtonBuilder()
                             .setStyle(ButtonStyle.Link)
-                            .setURL(this.config.docsURL)
+                            .setURL(this.config.panelURL)
                             .setEmoji({ name: "🔗" })
                             .setLabel("Panel"),
                     ),
