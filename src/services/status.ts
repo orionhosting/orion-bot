@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { Time } from "@sodiumlabs/duration";
+import { Time } from "@voctal/duration";
 import {
     ActionRowBuilder,
     ButtonBuilder,

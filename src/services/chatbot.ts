@@ -5,7 +5,7 @@ import {
     SchemaType,
     type GenerativeModel,
 } from "@google/generative-ai";
-import { Cache } from "@sodiumlabs/cache";
+import { Cache } from "@voctal/cache";
 import {
     ActionRowBuilder,
     ButtonBuilder,

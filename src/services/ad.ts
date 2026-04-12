@@ -1,4 +1,4 @@
-import { Time } from "@sodiumlabs/duration";
+import { Time } from "@voctal/duration";
 import type { OrionBot } from "@/structures/index";
 import { Service } from "@/structures/services/service";
 

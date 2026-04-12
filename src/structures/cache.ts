@@ -1,4 +1,4 @@
-import { ValueCache } from "@sodiumlabs/cache";
+import { ValueCache } from "@voctal/cache";
 import { config } from "@/config";
 
 /**

@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
-import { PlumeAPI } from "@sodiumlabs/plume-api";
+import { PlumeAPI } from "@voctal/plume-api";
 import { Client, Collection, type ClientOptions } from "discord.js";
 import pino, { Logger } from "pino";
 import { startAPI } from "@/api";

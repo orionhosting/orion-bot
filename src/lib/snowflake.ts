@@ -1,4 +1,4 @@
-import { Snowflake } from "@sodiumlabs/snowflake";
+import { Snowflake } from "@voctal/snowflake";
 
 /**
  * A class for parsing snowflake ids using Voctal's snowflake epoch

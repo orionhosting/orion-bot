@@ -1,5 +1,5 @@
 import { inspect } from "node:util";
-import { Time } from "@sodiumlabs/duration";
+import { Time } from "@voctal/duration";
 import { OrionBot } from "./bot";
 
 /**

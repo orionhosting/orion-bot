@@ -2,7 +2,7 @@ import assert from "node:assert";
 import fastifyRatelimit from "@fastify/rate-limit";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
-import { Time } from "@sodiumlabs/duration";
+import { Time } from "@voctal/duration";
 import Fastify from "fastify";
 import {
     hasZodFastifySchemaValidationErrors,

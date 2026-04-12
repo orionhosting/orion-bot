@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { Prisma, PrismaPromise, UserBoostState } from "@prisma-generated/index";
-import { Time } from "@sodiumlabs/duration";
+import { Time } from "@voctal/duration";
 import type { Collection, GuildMember } from "discord.js";
 import { config } from "@/config/index";
 import { CreditTransactionType } from "@/database/enums";
