@@ -115,6 +115,9 @@ export class ChatbotService extends Service {
             if (!msg.content.length) continue;
             if (msg.id === message.id) continue;
 
+            // First content should be from the user (Google error otherwise)
+            if (!history.length && msg.author.id === this.client.user.id) continue;
+
             // The history is limited to 1500 caracters. However, we include at least one message
             if (historyLength > 0) {
                 if (historyLength + msg.content.length >= 1500) break;
@@ -134,7 +137,7 @@ export class ChatbotService extends Service {
         const sitemap = await this.client.cache.getDocumentationSitemap();
         const systemInstruction = `You are a Discord bot called 'Orion Hosting'. You are currently on its support server, in the AI discussion channel.
 
-Orion Hosting is a free hosting platform made by 'LMC Group' (lmcgroup.xyz) and 'Sodium Labs' (sodiumlabs.xyz). (Made in collaboration).
+Orion Hosting is a free hosting platform made by 'Octara' (octara.xyz) and 'Voctal' (voctal.dev). (Made in collaboration).
 
 You need to help the users asking questions about the hosting platform.
 
@@ -153,6 +156,8 @@ If you are missing information to respond, tell the user to open a ticket on the
 - https://status.orionhost.xyz - The status page for our services
 
 - https://docs.orionhost.xyz - The documentation for our services
+
+- https://github.com/voctal/orion-cli - The CLI to deploy from the terminal
 
 # Ports
 
