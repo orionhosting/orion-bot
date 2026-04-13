@@ -21,3 +21,6 @@ logs/
 # Prisma
 generated/
 *.sqlite
+
+# Orion CLI
+.orion/
