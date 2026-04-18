@@ -62,7 +62,10 @@ export const startAPI = async (client: OrionBot) => {
                 },
             });
             if (!state) {
-                return reply.code(404).send();
+                return reply.send({
+                    active_since: null,
+                    next_reward_at: null,
+                });
             }
 
             return reply.send({
