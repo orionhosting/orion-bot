@@ -115,9 +115,6 @@ export class ChatbotService extends Service {
             if (!msg.content.length) continue;
             if (msg.id === message.id) continue;
 
-            // First content should be from the user (Google error otherwise)
-            if (!history.length && msg.author.id === this.client.user.id) continue;
-
             // The history is limited to 1500 caracters. However, we include at least one message
             if (historyLength > 0) {
                 if (historyLength + msg.content.length >= 1500) break;
@@ -130,6 +127,11 @@ export class ChatbotService extends Service {
 
             if (history.length >= 10) break;
             historyLength += msg.content.length;
+        }
+
+        // First content should be from the user (Google error otherwise)
+        while (history.length && history[0]?.role === "model") {
+            history.splice(0, 1);
         }
 
         // Instructions
