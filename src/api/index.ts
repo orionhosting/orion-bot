@@ -35,47 +35,6 @@ export const startAPI = async (client: OrionBot) => {
     );
 
     fastify.get(
-        "/api/users/:id/boosts",
-        {
-            schema: {
-                tags: ["Users"],
-                summary: "Get the boosting state of the user",
-                headers: z.object({
-                    authorization: z.string().max(100),
-                }),
-                params: z.object({ id: z.string().max(20) }),
-                response: {
-                    200: z.object({ active_since: z.int().nullable(), next_reward_at: z.int().nullable() }),
-                    401: z.void(),
-                    404: z.void(),
-                },
-            },
-        },
-        async (req, reply) => {
-            if (req.headers.authorization !== process.env.ADMIN_API_TOKEN) {
-                return reply.code(401).send();
-            }
-
-            const state = await prisma.userBoostState.findUnique({
-                where: {
-                    user_id: req.params.id,
-                },
-            });
-            if (!state) {
-                return reply.send({
-                    active_since: null,
-                    next_reward_at: null,
-                });
-            }
-
-            return reply.send({
-                active_since: state.boosting_since,
-                next_reward_at: state.boosting_since ? client.services.boosts.getNextRewardTimestamp(state) : null,
-            });
-        },
-    );
-
-    fastify.get(
         "/api/users/:id/ad",
         {
             schema: {

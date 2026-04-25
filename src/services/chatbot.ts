@@ -194,7 +194,7 @@ ${sitemap
             response = result.response;
         } catch (err) {
             if (err instanceof GoogleGenerativeAIFetchError && err.status === 503) {
-                // The model is overloaded
+                await message.react("⏰");
                 return;
             } else {
                 throw err;

@@ -41,21 +41,3 @@ model GuildAdState {
   /// The first reward is only given after a week (not directly after setup).
   last_reward_at Int?
 }
-
-/// A user boost state.
-///
-/// When a user boost the support, he receives a reward
-/// every week. This model is used to keep track of the
-/// user boost state and when the rewards were given.
-model UserBoostState {
-  user_id        String  @id
-  /// If the user was boosting during the last check.
-  is_boosting    Boolean
-  /// The timestamp since when the user is boosting.
-  boosting_since Int?
-  /// The timestamp of the last check of the user boost state.
-  updated_at     Int
-
-  /// The timestamp of the last reward.
-  last_reward_at Int
-}

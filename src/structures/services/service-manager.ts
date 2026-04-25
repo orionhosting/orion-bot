@@ -1,5 +1,4 @@
 import { AdService } from "@/services/ad";
-import { BoostService } from "@/services/boost";
 import { ChatbotService } from "@/services/chatbot";
 import { StatusService } from "@/services/status";
 import type { OrionBot } from "@/structures/index";
@@ -11,7 +10,6 @@ export default class ServiceManager {
 
     public readonly ad: AdService;
     public readonly chatbot: ChatbotService;
-    public readonly boosts: BoostService;
     public readonly status: StatusService;
 
     public constructor(public readonly client: OrionBot) {
@@ -20,7 +18,6 @@ export default class ServiceManager {
 
         this.ad = this._register(new AdService(client));
         this.chatbot = this._register(new ChatbotService(client));
-        this.boosts = this._register(new BoostService(client));
         this.status = this._register(new StatusService(client));
     }
 

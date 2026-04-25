@@ -13,14 +13,15 @@
     "scripts": {
         "dev": "npm run build && npm run start",
         "build": "rimraf dist && swc src -d dist --copy-files --strip-leading-paths",
-        "start": "node .",
+        "start": "npm run prisma:deploy && node .",
         "deploy": "npm run build && orion deploy",
         "start:all": "npm run script:deploy-commands && npm run start",
         "script:deploy-commands": "node dist/scripts/deploy.js",
         "lint": "tsc --noEmit && oxlint",
         "fmt": "oxfmt",
         "prisma:generate": "prisma generate",
-        "prisma:migrate": "prisma migrate dev"
+        "prisma:migrate": "prisma migrate dev",
+        "prisma:deploy": "prisma migrate deploy"
     },
     "dependencies": {
         "@fastify/rate-limit": "^10.3.0",
