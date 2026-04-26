@@ -67,7 +67,7 @@ export class StatusService extends Service {
         const orionBotPing = await this.pingURL(this.config.botAPIURL);
         const docsPing = await this.pingURL(this.config.docsURL);
         const panelPing = await this.pingURL(this.config.panelURL);
-        const fr1NodePing = await this.pingURL(`http://fr1.${this.config.domain}`);
+        const fr1NodePing = await this.pingURL(`http://fr1.${this.config.domain}:8080`);
 
         const container = new ContainerBuilder()
             .setAccentColor(this.colors.primary.int)
