@@ -66,13 +66,25 @@ export class ChatbotService extends Service {
     public readonly chattingGuilds = new Set<string>();
     public readonly credits = new Cache<"global", number>();
 
+    private lastRatelimitAlert = 0;
+
     public async onMessage(message: Message<true>): Promise<void> {
         if (message.channelId !== this.config.aiChannelId) return;
 
         // Conditions
         if (message.author.bot || message.webhookId) return;
-        if (message.type !== MessageType.Default) return;
+        if (message.type !== MessageType.Default && message.type !== MessageType.Reply) return;
         if (message.channel.type !== ChannelType.GuildText) return;
+
+        if (message.type === MessageType.Reply) {
+            try {
+                const reference = await message.fetchReference();
+                // Do not answer if the reply is not targeted at the bot
+                if (reference.author.id !== this.client.user.id) return;
+            } catch {
+                return;
+            }
+        }
 
         if (!this._hasChannelPermission(message.channel)) return;
 
@@ -163,10 +175,11 @@ If you are missing information to respond, tell the user to open a ticket on the
 
 # Ports
 
-The servers have 2 public adresses:
+The servers have multiple adresses:
 
 - http://fr1.orionhost.xyz:4xxx - HTTP public port
 - https://4xxx.fr1.orionhost.xyz - HTTPS url (uses the same number as the public port)
+- Custom *.orionhost.app subdomain configurable in the dashboard
 
 # Docs (fr)
 
@@ -193,9 +206,23 @@ ${sitemap
             const result = await chat.sendMessage(`@${message.author.username}: ${message.content}`);
             response = result.response;
         } catch (err) {
-            if (err instanceof GoogleGenerativeAIFetchError && err.status === 503) {
-                await message.react("⏰");
-                return;
+            if (err instanceof GoogleGenerativeAIFetchError) {
+                if (err.status === 503) {
+                    await message.react("⏰");
+                    return;
+                } else if (err.status === 429) {
+                    if (Date.now() - this.lastRatelimitAlert > 60_000) {
+                        this.lastRatelimitAlert = Date.now();
+                        try {
+                            await message.reply(
+                                "*The chatbot has reached its message limit. Please wait a moment or contact the support instead.*",
+                            );
+                        } catch {}
+                    }
+                    return;
+                } else {
+                    throw err;
+                }
             } else {
                 throw err;
             }
