@@ -26,12 +26,14 @@ export default class extends Event {
                     content: `${this.emojis.warn} ${lang.t("err_command_disabled")}`,
                     ephemeral: true,
                 });
+                return;
             }
             if (command.ownerOnly && !this.config.ownerIds.includes(interaction.user.id)) {
                 await interaction.reply({
                     content: `${this.emojis.warn} ${lang.t("err_missing_permissions")}`,
                     ephemeral: true,
                 });
+                return;
             }
 
             try {
