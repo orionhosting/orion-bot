@@ -76,7 +76,6 @@ export default class extends Command {
                         type: ApplicationCommandOptionType.String,
                         description: "Only needed when the type is custom",
                         max_length: 500,
-                        required: true,
                     },
                 ],
             },
