@@ -36,7 +36,7 @@ export default class extends Command {
         const orionAPIPing = await this.client.services.status.pingURL(this.config.apiURL);
         const docsPing = await this.client.services.status.pingURL(this.config.docsURL);
         const panelPing = await this.client.services.status.pingURL(this.config.panelURL);
-        const fr1NodePing = await this.client.services.status.pingURL(`http://fr1.${this.config.domain}`);
+        const fr1NodePing = await this.client.services.status.pingURL(`http://fr1.${this.config.domain}:8080`);
         const offlineLabel = lang.common("offline").toLowerCase();
 
         const container = new ContainerBuilder()
