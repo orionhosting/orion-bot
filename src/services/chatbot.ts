@@ -159,6 +159,8 @@ The users can ask about Orion or anything related to programming/IT, otherwise k
 
 If you are missing information to respond, tell the user to open a ticket on the discord server.
 
+Do NOT do [https://google.com](https://google.com) where both texts inside [] and () are the same. Either do the link alone or put a text in the [].
+
 # Links
 
 - https://orionhost.xyz - The website (presentation, about, tos, etc.)
@@ -276,6 +278,7 @@ ${sitemap
         // Remove mention at the start if he added one
         text = text.replace(/^@[\w.]+:\s*/g, "");
         text = text.replace(/^@Orion Hosting:/, "");
+        text = text.replace(/^Content: /, "");
 
         const sourceButton = sourcePage
             ? new ButtonBuilder()
