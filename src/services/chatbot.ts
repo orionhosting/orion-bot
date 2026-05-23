@@ -77,12 +77,13 @@ export class ChatbotService extends Service {
         if (message.channel.type !== ChannelType.GuildText) return;
 
         if (message.type === MessageType.Reply) {
-            try {
-                const reference = await message.fetchReference();
-                // Do not answer if the reply is not targeted at the bot
-                if (reference.author.id !== this.client.user.id) return;
-            } catch {
-                return;
+            if (message.mentions.repliedUser) {
+                if (message.mentions.repliedUser.id !== this.client.user.id) {
+                    return;
+                }
+
+                const hasMention = message.mentions.has(message.mentions.repliedUser.id);
+                if (!hasMention) return;
             }
         }
 
