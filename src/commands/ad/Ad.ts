@@ -63,6 +63,14 @@ export default class extends Command {
     const subcommand = interaction.options.getSubcommand();
 
     if (subcommand === "config") {
+      if (interaction.guild && interaction.guild.memberCount < 20) {
+        await interaction.reply({
+          content: lang.t("config.err_not_enough_members"),
+          flags: [MessageFlags.Ephemeral],
+        });
+        return;
+      }
+
       const channel = interaction.options.getChannel("channel", true);
 
       const container = new ContainerBuilder()
@@ -137,6 +145,14 @@ export default class extends Command {
       const pub = lang.t("config.pub");
       const channelId = interaction.customId.split("ad-send_ad-")[1];
       if (!channelId) return;
+
+      if (interaction.guild && interaction.guild.memberCount < 20) {
+        await interaction.reply({
+          content: lang.t("config.err_not_enough_members"),
+          flags: [MessageFlags.Ephemeral],
+        });
+        return;
+      }
 
       const channel = await this.client.channels
         .fetch(channelId)

@@ -33,6 +33,7 @@
         "description": "Share Orion Hosting's advertisement to earn credits",
         "config": {
             "title": "Ad Configuration",
+            "err_not_enough_members": "❌ Your server must have at least 20 members to participate in the advertisement program!",
             "success": "Advertisement sent in {{channel}} !",
             "message": "Orion Hosting's advertisement will be sent in the channel <#{{channel}}>.\n:warning: Please adhere to our terms to receive your credits : [docs.orionhost.xyz](https://docs.orionhost.xyz/en/guides/credits/obtain#share-our-advertisement-via-our-bot)",
             "pub": "# Orion Hosting\nHost your Discord bot or other applications with our reliable and performant hosting !\n\n- NodeJS, Python, HTML/PHP\n- 100% free\n- Free subdomain\n- 7j/7 support\n- Programming assistance on our Discord\n\n__Join us now !__\nhttps://discord.gg/gzYKugxq9a\nhttps://orionhost.xyz",
