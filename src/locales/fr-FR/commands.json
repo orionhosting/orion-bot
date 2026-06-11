@@ -28,5 +28,31 @@
         "services.title": "Latences des services",
         "services.more": "Consultez la page d'état pour plus de détails sur nos services.",
         "bot.title": "Bot Discord"
+    }, 
+    "ad": {
+        "description": "Partagez la publicité de Orion Hosting pour obtenir des crédits",
+        "config": {
+            "title": "Configuration de la pub",
+            "success": "Publicité envoyée dans {{channel}} !",
+            "message": "La publicitée de Orion Hosting sera envoyé dans le salon <#{{channel}}>.\n:warning: Veillez a resepcter nos conditions pour recevoir vos crédits : [docs.orionhost.xyz](https://docs.orionhost.xyz/fr/guides/credits/obtain#partager-notre-publicité-via-notre-bot)",
+            "pub": "# Orion Hosting\nHéberger votre bot Discord ou autre application grâce à notre hébergeur fiable et performant !\n\n- NodeJS, Python, HTML/PHP\n- 100% gratuit\n- Sous-domaine gratuit\n- Support 7j/7\n- Aide à la programmation sur notre Discord\n\n__Rejoignez-nous dès maintenant !__\nhttps://discord.gg/gzYKugxq9a\nhttps://orionhost.xyz",
+            "buttons": {
+                "send": "Envoyer la publicité"
+            }
+        },
+        "status": {
+            "title": "Statut de la pub",
+            "global_status": "**Statut global :** {{status}}",
+            "channel": "**Salon configuré :** {{channel}}",
+            "current_state": "**État actuel :** {{state}}",
+            "valid_since": "**Valide depuis :** {{date}}",
+            "last_reward": "**Dernière récompense :** {{date}}",
+            "enabled": "✅ Activé",
+            "disabled": "❌ Désactivé",
+            "none": "Aucun",
+            "valid": "✅ Valide",
+            "invalid": "❌ Invalide",
+            "na": "N/A"
+        }
     }
 }

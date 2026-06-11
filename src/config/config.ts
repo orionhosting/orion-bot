@@ -3,7 +3,7 @@ const production = process.env.NODE_ENV === "production";
 export default {
     hostingName: "Orion Hosting",
     ownerIds: ["619838036846575617", "755054105713704960"],
-    supportGuildId: production ? "1306734190238371860" : "753715962720682004",
+    supportGuildId: production ? "1306734190238371860" : "1096520545656393739",
     aiChannelId: production ? "1307470895010549803" : "1430675822930432102",
     statusChannelId: production ? "1310373468423983135" : "1481021652555796711",
     supportInvite: "https://discord.gg/gzYKugxq9a",
