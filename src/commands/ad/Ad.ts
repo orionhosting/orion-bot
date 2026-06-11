@@ -6,14 +6,9 @@ import {
   ButtonStyle,
   ContainerBuilder,
   InteractionContextType,
-  MessageActionRowComponent,
   MessageActionRowComponentBuilder,
   MessageFlags,
-  SectionBuilder,
-  SeparatorBuilder,
-  SeparatorSpacingSize,
   TextDisplayBuilder,
-  ThumbnailBuilder,
 } from "discord.js";
 import {
   Command,
@@ -103,27 +98,39 @@ export default class extends Command {
       if (!interaction.guildId) return;
 
       const settings = await prisma.guildSettings.findUnique({
-        where: { id: interaction.guildId }
+        where: { id: interaction.guildId },
       });
       const state = await prisma.guildAdState.findUnique({
-        where: { guild_id: interaction.guildId }
+        where: { guild_id: interaction.guildId },
       });
 
-      const isEnabled = settings?.ad_enabled ? lang.t("status.enabled") : lang.t("status.disabled");
-      const channelStr = settings?.ad_channel_id ? `<#${settings.ad_channel_id}>` : lang.t("status.none");
-      const isValid = state?.is_valid ? lang.t("status.valid") : lang.t("status.invalid");
-      const validSince = state?.valid_since ? `<t:${state.valid_since}:R>` : lang.t("status.na");
-      const lastReward = state?.last_reward_at ? `<t:${state.last_reward_at}:R>` : lang.t("status.na");
+      const isEnabled = settings?.ad_enabled
+        ? lang.t("status.enabled")
+        : lang.t("status.disabled");
+      const channelStr = settings?.ad_channel_id
+        ? `<#${settings.ad_channel_id}>`
+        : lang.t("status.none");
+      const isValid = state?.is_valid
+        ? lang.t("status.valid")
+        : lang.t("status.invalid");
+      const validSince = state?.valid_since
+        ? `<t:${state.valid_since}:R>`
+        : lang.t("status.na");
+      const lastReward = state?.last_reward_at
+        ? `<t:${state.last_reward_at}:R>`
+        : lang.t("status.na");
 
       const container = new ContainerBuilder()
         .setAccentColor(this.colors.primary.int)
         .addTextDisplayComponents(
-          new TextDisplayBuilder().setContent(`## ${this.emojis.logo} Orion - ${lang.t("status.title")}`),
+          new TextDisplayBuilder().setContent(
+            `## ${this.emojis.logo} Orion - ${lang.t("status.title")}`,
+          ),
         )
         .addTextDisplayComponents(
           new TextDisplayBuilder().setContent(
-            `${lang.t("status.global_status", { status: isEnabled })}\n${lang.t("status.channel", { channel: channelStr })}\n\n${lang.t("status.current_state", { state: isValid })}\n${lang.t("status.valid_since", { date: validSince })}\n${lang.t("status.last_reward", { date: lastReward })}`
-          )
+            `${lang.t("status.global_status", { status: isEnabled })}\n${lang.t("status.channel", { channel: channelStr })}\n\n${lang.t("status.current_state", { state: isValid })}\n${lang.t("status.valid_since", { date: validSince })}\n${lang.t("status.last_reward", { date: lastReward })}`,
+          ),
         );
 
       await interaction.reply({
