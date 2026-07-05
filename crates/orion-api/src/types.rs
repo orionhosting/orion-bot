@@ -1,4 +1,6 @@
+use num_enum::TryFromPrimitive;
 use serde::{Deserialize, Serialize};
+use serde_repr::Serialize_repr;
 
 #[derive(Debug, Deserialize)]
 pub struct ApiStatus {
@@ -49,7 +51,8 @@ pub struct CreditTransactionResult {
     pub user_credits: i64,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize_repr, TryFromPrimitive)]
+#[repr(u8)]
 pub enum CreditTransactionType {
     Custom = 0,
     Giveaway = 1,

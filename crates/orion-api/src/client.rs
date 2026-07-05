@@ -40,15 +40,17 @@ impl OrionApiClient {
     async fn handle_error_response(resp: reqwest::Response) -> OrionError {
         let status = resp.status();
         let status_code = status.as_u16();
-        let message = resp
-            .json::<serde_json::Value>()
-            .await
-            .ok()
-            .and_then(|v| v.get("message").and_then(|m| m.as_str()).map(str::to_owned));
+        let message = resp.text().await.unwrap();
+        println!("{}", message);
+        // let message = resp
+        // .json::<serde_json::Value>()
+        // .await
+        // .ok()
+        // .and_then(|v| v.get("message").and_then(|m| m.as_str()).map(str::to_owned));
 
         OrionError::Api {
             status: status_code,
-            message,
+            message: message.into(),
         }
     }
 
