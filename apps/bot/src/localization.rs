@@ -20,7 +20,7 @@ pub fn get_discord_locale(locale: &Locale) -> &'static str {
 /// See https://docs.discord.com/developers/reference#locales
 pub fn from_discord_locale(locale: &String) -> Locale {
     match locale.as_str() {
-        "en-US" => Locale::En,
+        "en-US" | "en-GB" => Locale::En,
         "fr" => Locale::Fr,
         "es-ES" | "es-419" => Locale::Es,
         "de" => Locale::De,
