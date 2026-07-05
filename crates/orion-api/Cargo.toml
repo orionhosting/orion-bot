@@ -1,0 +1,10 @@
+[package]
+name = "orion-api"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+reqwest = { workspace = true }
+thiserror = { workspace = true }
