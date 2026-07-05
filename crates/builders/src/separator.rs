@@ -14,12 +14,12 @@ impl SeparatorBuilder {
         }
     }
 
-    pub fn divider<F>(mut self, divider: bool) -> Self {
+    pub fn divider(mut self, divider: bool) -> Self {
         self.divider = Some(divider);
         self
     }
 
-    pub fn spacing<F>(mut self, spacing: SeparatorSpacingSize) -> Self {
+    pub fn spacing(mut self, spacing: SeparatorSpacingSize) -> Self {
         self.spacing = Some(spacing);
         self
     }
