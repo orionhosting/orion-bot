@@ -1,0 +1,12 @@
+{
+    "errors.err_unknown": "Ocurrió un error desconocido.",
+    "errors.err_menu_owner": "¡No puedes interactuar con este menú!",
+    "commands.no_description": "Sin descripción",
+    "commands.categories.informations": "Información",
+    "dashboard": "Panel de control",
+    "panel": "Panel",
+    "documentation": "Documentación",
+    "status": "Estado",
+    "status_page": "Página de estado",
+    "offline": "Desconectado"
+}

@@ -1,0 +1,12 @@
+{
+    "errors.err_unknown": "Įvyko nežinoma klaida.",
+    "errors.err_menu_owner": "Negalite sąveikauti su šiuo meniu!",
+    "commands.no_description": "Nėra aprašymo",
+    "commands.categories.informations": "Informacija",
+    "dashboard": "Valdymo skydelis",
+    "panel": "Panelė",
+    "documentation": "Dokumentacija",
+    "status": "Būsena",
+    "status_page": "Būsenos puslapis",
+    "offline": "Neprisijungęs"
+}

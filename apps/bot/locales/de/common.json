@@ -1,0 +1,12 @@
+{
+    "errors.err_unknown": "Ein unbekannter Fehler ist aufgetreten.",
+    "errors.err_menu_owner": "Du kannst mit diesem Menü nicht interagieren!",
+    "commands.no_description": "Keine Beschreibung",
+    "commands.categories.informations": "Informationen",
+    "dashboard": "Dashboard",
+    "panel": "Panel",
+    "documentation": "Dokumentation",
+    "status": "Status",
+    "status_page": "Statusseite",
+    "offline": "Offline"
+}

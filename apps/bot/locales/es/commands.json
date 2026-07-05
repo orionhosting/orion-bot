@@ -1,0 +1,32 @@
+{
+    "account": {
+        "description": "Accede a tu cuenta",
+        "card.title.your_account": "Tu cuenta",
+        "card.content.credits": "Tienes **{amount}** créditos.",
+        "no_account.content.guide": "No tienes una cuenta, crea una iniciando sesión en el panel.",
+        "no_account.buttons.create_account": "Crear una cuenta"
+    },
+    "docs": {
+        "description": "Accede a la documentación",
+        "options.page.description": "La página de documentación",
+        "err_invalid_page": "¡Página inválida!"
+    },
+    "help": {
+        "description": "Obtén ayuda sobre Orion",
+        "title": "Ayuda",
+        "hosting.title": "Hosting",
+        "hosting.description": "Orion Hosting es un servicio de alojamiento gratuito y fiable para lanzar tus proyectos sin gastar ni un céntimo.",
+        "hosting.buttons.create_free_server": "Crear un servidor gratuito",
+        "services.title": "Nuestros Servicios",
+        "services.website": "Sitio web",
+        "services.buttons.join_support": "Unirse al soporte",
+        "services.buttons.add_bot": "Añadir el bot a tu cuenta"
+    },
+    "ping": {
+        "description": "Obtén el estado de nuestros servicios",
+        "pinging": "Calculando la latencia de nuestros servicios...",
+        "services.title": "Latencias de los servicios",
+        "services.more": "Usa la página de estado para más detalles sobre nuestros servicios.",
+        "bot.title": "Bot de Discord"
+    }
+}

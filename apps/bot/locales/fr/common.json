@@ -1,0 +1,12 @@
+{
+    "errors.err_unknown": "Une erreur est survenue.",
+    "errors.err_menu_owner": "Vous ne pouvez pas intéragir avec ce menu !",
+    "commands.no_description": "Aucune description",
+    "commands.categories.informations": "Informations",
+    "dashboard": "Tableau de bord",
+    "panel": "Panel",
+    "documentation": "Documentation",
+    "status": "Statut",
+    "status_page": "Page de Statut",
+    "offline": "Hors-ligne"
+}

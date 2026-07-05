@@ -1,0 +1,6 @@
+{
+    "interactionCreate": {
+        "err_command_disabled": "Ši komanda išjungta.",
+        "err_missing_permissions": "Neturite prieigos prie šios komandos."
+    }
+}
