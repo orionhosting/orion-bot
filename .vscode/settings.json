@@ -1,20 +1,3 @@
 {
-    "js/ts.tsdk.path": "node_modules/typescript/lib",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "oxc.oxc-vscode",
-    "files.associations": {
-        "tsconfig.json": "jsonc"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "oxc.oxc-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "oxc.oxc-vscode"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "oxc.oxc-vscode"
-    },
-    "[prisma]": {
-        "editor.defaultFormatter": "Prisma.prisma"
-    }
 }

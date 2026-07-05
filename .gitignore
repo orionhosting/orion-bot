@@ -1,26 +1,10 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# Dependencies
-node_modules
-
-# Local env files
+/logs
 .env
 
-# Testing
-coverage
-
-# Build Outputs
-dist
-
-# Misc
-*.zip
-
-# Logs
-logs/
-
-# Prisma
-generated/
-*.sqlite
+# build
+/target
+orion-bot
+*.exe
 
 # Orion CLI
 .orion/
