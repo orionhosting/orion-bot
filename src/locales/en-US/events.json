@@ -1,6 +1,0 @@
-{
-    "interactionCreate": {
-        "err_command_disabled": "This command is disabled.",
-        "err_missing_permissions": "You do not have access to this command."
-    }
-}

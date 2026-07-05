@@ -1,6 +1,0 @@
-{
-    "interactionCreate": {
-        "err_command_disabled": "Cette commande est désactivée.",
-        "err_missing_permissions": "Vous n'avez pas accès à cette commande."
-    }
-}
