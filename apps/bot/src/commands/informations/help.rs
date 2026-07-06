@@ -66,10 +66,10 @@ impl Command<App> for HelpCommand {
             .add_separator(|s| s.divider(false).spacing(SeparatorSpacingSize::Small))
             .add_text_display(|d| {
                 d.content(format!(
-                    "### GitHubs\n> Orion Hosting: {}\n> Orion Bot: {}\n> Orion CLI: {}/orion-cli",
+                    "### GitHubs\n> Orion Hosting: {}\n> Orion Bot: {}\n> Orion CLI: {}",
                     Config::ORION_GITHUB_URL,
                     Config::BOT_GITHUB_URL,
-                    Config::ORION_GITHUB_URL,
+                    Config::CLI_GITHUB_URL,
                 ))
             })
             .add_action_row(|row| {

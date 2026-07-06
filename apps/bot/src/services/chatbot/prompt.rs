@@ -21,7 +21,7 @@ pub(super) fn build_system_prompt(docs_list: &str, history: &str) -> String {
         - https://status.orionhost.xyz - Status page\n\
         - https://docs.orionhost.xyz - Documentation\n\
         - https://github.com/orionhosting - GitHub\n\
-        - https://github.com/orionhosting/orion-cli - CLI (to deploy, etc.)\n\
+        - https://github.com/orionhosting/cli - CLI (to deploy, etc.)\n\
         - https://github.com/orionhosting/orion-bot - Your source code\n\
         \n\
         # Ports\n\

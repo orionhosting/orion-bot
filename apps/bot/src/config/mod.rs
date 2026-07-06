@@ -41,6 +41,7 @@ impl Config {
     pub const PANEL_URL: &'static str = "https://panel.orionhost.xyz";
     pub const ORION_GITHUB_URL: &'static str = "https://github.com/orionhosting";
     pub const BOT_GITHUB_URL: &'static str = "https://github.com/orionhosting/orion-bot";
+    pub const CLI_GITHUB_URL: &'static str = "https://github.com/orionhosting/cli";
     pub const DOCS_URL: &'static str = "https://docs.orionhost.xyz";
     pub const STATUS_URL: &'static str = "https://status.orionhost.xyz";
     pub const API_URL: &'static str = "https://api.orionhost.xyz";
