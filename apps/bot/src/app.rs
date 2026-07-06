@@ -7,7 +7,7 @@ use twilight_cache_inmemory::InMemoryCache;
 use twilight_http::Client as DiscordHttp;
 use twilight_model::id::{Id, marker::ApplicationMarker};
 
-use crate::services::ServiceManager;
+use crate::{remote_logger::RemoteLogger, services::ServiceManager};
 
 /// The shared bot state.
 pub struct App {
@@ -24,6 +24,7 @@ pub struct App {
     /// Orion API client.
     pub orion_api: Arc<OrionApiClient>,
     pub services: Arc<ServiceManager>,
+    pub remote_logger: Arc<RemoteLogger>,
 
     gateway_latency: RwLock<Option<Duration>>,
 }
@@ -36,6 +37,7 @@ impl App {
         commands: Arc<CommandRegistry<App>>,
         http: Arc<reqwest::Client>,
         services: Arc<ServiceManager>,
+        remote_logger: Arc<RemoteLogger>,
         orion_api: Arc<OrionApiClient>,
     ) -> Self {
         Self {
@@ -46,6 +48,7 @@ impl App {
             http,
             orion_api,
             services,
+            remote_logger,
             gateway_latency: RwLock::new(None),
         }
     }
