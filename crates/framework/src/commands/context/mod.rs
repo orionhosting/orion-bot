@@ -52,6 +52,10 @@ impl<'a, App> CommandContext<'a, App> {
         }
     }
 
+    pub fn has_sent_initial_response(&self) -> bool {
+        self.has_sent_initial_response.load(Ordering::Relaxed)
+    }
+
     pub fn interaction_client(&self) -> InteractionClient<'_> {
         self.http.interaction(self.application_id)
     }
