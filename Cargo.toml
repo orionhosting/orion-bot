@@ -4,6 +4,11 @@ resolver = "3"
 
 [workspace.package]
 version = "0.1.0"
+edition = "2024"
+license = "CC BY-NC-SA 4.0"
+authors = ["cbrra (https://github.com/cbrra)"]
+description = "The Orion Bot"
+repository = "https://github.com/orionhosting/orion-bot"
 
 [workspace.dependencies]
 framework = { path = "crates/framework" }
@@ -30,7 +35,7 @@ twilight-util = { version = "0.17.0", features = ["builder", "snowflake"] }
 twilight-cache-inmemory = "0.17.1"
 
 [profile.release]
-opt-level = 3
+opt-level = 2
 panic = "abort"
 codegen-units = 1
 lto = true

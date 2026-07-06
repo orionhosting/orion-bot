@@ -1,7 +1,11 @@
 [package]
 name = "bot"
 version.workspace = true
-edition = "2024"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description.workspace = true
+repository.workspace = true
 
 [dependencies]
 framework = { workspace = true }
