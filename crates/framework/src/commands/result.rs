@@ -33,7 +33,7 @@ impl fmt::Display for CommandError {
 
 impl From<twilight_http::Error> for CommandError {
     fn from(e: twilight_http::Error) -> Self {
-        CommandError::Anyhow(anyhow!(e).into())
+        CommandError::Anyhow(anyhow!(e))
     }
 }
 

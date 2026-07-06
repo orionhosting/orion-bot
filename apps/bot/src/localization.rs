@@ -18,8 +18,8 @@ pub fn get_discord_locale(locale: &Locale) -> &'static str {
 /// Convert a Discord locale to a locale.
 ///
 /// See https://docs.discord.com/developers/reference#locales
-pub fn from_discord_locale(locale: &String) -> Locale {
-    match locale.as_str() {
+pub fn from_discord_locale(locale: &str) -> Locale {
+    match locale {
         "en-US" | "en-GB" => Locale::En,
         "fr" => Locale::Fr,
         "es-ES" | "es-419" => Locale::Es,

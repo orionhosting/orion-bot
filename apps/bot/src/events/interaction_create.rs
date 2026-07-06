@@ -114,11 +114,12 @@ async fn handle_autocomplete(app: Arc<App>, interaction: Interaction) {
 async fn send_error_response(ctx: &CommandContext<'_>, err: &CommandError) {
     warn!("Command error: {:?}", err);
 
-    // TODO: dont ignore result
-    let _ = ctx
-        .app
-        .remote_logger
-        .send_warning("A command error occurred, check the logs");
+    let logger = ctx.app.remote_logger.clone();
+    let message = "A command error occurred, check the logs";
+    tokio::spawn(async move {
+        // TODO: dont ignore result
+        let _ = logger.send_warning(message).await;
+    });
 
     let content = match err {
         CommandError::Permission(_msg) => "Missing Permissions!".into(),

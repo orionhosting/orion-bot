@@ -62,10 +62,7 @@ impl SectionBuilder {
         Section {
             id: None,
             components: self.components,
-            accessory: Box::new(
-                self.accessory
-                    .expect("Section requires an accessory"),
-            ),
+            accessory: Box::new(self.accessory.expect("Section requires an accessory")),
         }
     }
 }

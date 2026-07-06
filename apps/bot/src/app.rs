@@ -30,6 +30,7 @@ pub struct App {
 }
 
 impl App {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         application_id: Id<ApplicationMarker>,
         discord: Arc<DiscordHttp>,

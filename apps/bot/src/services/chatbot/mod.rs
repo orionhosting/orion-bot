@@ -22,7 +22,7 @@ use twilight_http::request::channel::reaction::RequestReactionType;
 use twilight_model::{
     channel::message::{AllowedMentions, MessageFlags, component::Component},
     guild::Permissions,
-    id::marker::{ChannelMarker, MessageMarker},
+    id::marker::ChannelMarker,
 };
 use twilight_model::{
     channel::{Message, message::MessageType},
@@ -34,7 +34,7 @@ use crate::{
     config::Config,
     services::chatbot::{
         prompt::build_system_prompt,
-        tools::FetchDocsTool,
+        tools::{FetchDocsTool, SourcePage},
         util::{now_secs, strip_self_mention, truncate_to_chars},
     },
 };
@@ -266,13 +266,18 @@ impl ChatbotService {
         msg: &Message,
         text: &str,
         app: &Arc<App>,
-        source_page: Option<(String, String, Id<MessageMarker>)>,
+        source_page: Option<SourcePage>,
     ) {
         let mut components: Vec<Component> = Vec::new();
         let mut target_message_id = None;
 
         // If the chatbot has read the docs, include the source page and extract the message ID to edit
-        if let Some((name, url, loading_msg_id)) = source_page {
+        if let Some(SourcePage {
+            name,
+            url,
+            loading_msg_id,
+        }) = source_page
+        {
             target_message_id = Some(loading_msg_id);
             components.push(
                 ActionRowBuilder::new()

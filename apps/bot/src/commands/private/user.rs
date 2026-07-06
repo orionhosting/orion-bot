@@ -69,7 +69,7 @@ impl Command<App> for UserCommand {
                 ctx.edit_reply(Reply::new().components_v2(container.into()))
                     .await?;
             }
-            Err(OrionError::Api { status, .. }) if status == 404 => {
+            Err(OrionError::Api { status: 404, .. }) => {
                 // 404 means the user does not have an account
 
                 ctx.edit_reply(Reply::new().content("This user does not have an Orion account"))

@@ -56,7 +56,7 @@ impl Command<App> for AccountCommand {
                 ctx.reply(Reply::new().components_v2(container.into()))
                     .await?;
             }
-            Err(OrionError::Api { status, .. }) if status == 404 => {
+            Err(OrionError::Api { status: 404, .. }) => {
                 // 404 means the user does not have an account yet
 
                 let container = ContainerBuilder::new()

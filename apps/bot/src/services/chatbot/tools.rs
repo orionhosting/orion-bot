@@ -34,11 +34,18 @@ pub struct FetchDocsOutput {
 #[error("{0}")]
 pub struct FetchDocsError(String);
 
+#[derive(Clone)]
+pub struct SourcePage {
+    pub name: String,
+    pub url: String,
+    pub loading_msg_id: Id<MessageMarker>,
+}
+
 pub struct FetchDocsTool {
     pub app: Arc<App>,
     pub channel_id: Id<twilight_model::id::marker::ChannelMarker>,
     pub message_id: Id<twilight_model::id::marker::MessageMarker>,
-    pub source_page: Arc<Mutex<Option<(String, String, Id<MessageMarker>)>>>, // (Name, URL, ID)
+    pub source_page: Arc<Mutex<Option<SourcePage>>>,
     pub has_been_called: AtomicBool,
 }
 
@@ -111,8 +118,11 @@ impl Tool for FetchDocsTool {
             .map_err(|_| FetchDocsError("Could not parse reading indicator response.".into()))?;
 
         // Lock the mutex
-        *self.source_page.lock().await =
-            Some((page.name.clone(), page.url.clone(), loading_msg.id));
+        *self.source_page.lock().await = Some(SourcePage {
+            name: page.name.clone(),
+            url: page.url.clone(),
+            loading_msg_id: loading_msg.id,
+        });
 
         let mdx_url = format!("{}.mdx", page.url);
         let text = reqwest::get(&mdx_url)
