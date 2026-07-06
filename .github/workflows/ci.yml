@@ -18,7 +18,7 @@ env:
 
 jobs:
     fmt:
-        name: "Format"
+        name: "Format check"
         runs-on: ubuntu-latest
         timeout-minutes: 15
         steps:

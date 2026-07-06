@@ -13,7 +13,7 @@ The source code of Orion Bot. The bot is present on the support but can be added
 
 The bot uses [Twilight](https://github.com/twilight-rs/twilight) for the Discord client, [Rig](https://github.com/0xplaygrounds/rig) for the chatbot, [Axum](https://github.com/tokio-rs/axum) for the API, and [rust-intl](https://github.com/voctal/rust-intl) for translations.
 
-The bot was originally written in TypeScript using discord.js, but was rewritten to reduce resource usage (RAM: ~120MB -> ~10MB, disk: ~700MB -> ~30MB). View old code [here](https://github.com/orionhosting/orion-bot/tree/776d7a4d7bb216e197fda7e719b2293a75f732d2).
+The bot was originally written in TypeScript using discord.js, but was rewritten to reduce resource usage (RAM: ~120MB -> ~20MB, disk: ~700MB -> ~30MB). View old code [here](https://github.com/orionhosting/orion-bot/tree/776d7a4d7bb216e197fda7e719b2293a75f732d2).
 
 ## Note
 
