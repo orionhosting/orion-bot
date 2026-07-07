@@ -17,8 +17,12 @@ use mimalloc::MiMalloc;
 use orion_api::OrionApiClient;
 use tracing::{error, info};
 use twilight_cache_inmemory::{DefaultInMemoryCache, ResourceType};
-use twilight_gateway::{EventTypeFlags, Intents, Shard, ShardId, StreamExt as _};
+use twilight_gateway::{Event, EventTypeFlags, Intents, Shard, ShardId, StreamExt as _};
 use twilight_http::Client as DiscordHttp;
+use twilight_model::gateway::{
+    payload::outgoing::UpdatePresence,
+    presence::{ActivityType, MinimalActivity, Status},
+};
 
 use crate::{
     api::start_api,
@@ -93,10 +97,14 @@ async fn main() -> Result<()> {
 }
 
 async fn run_app(app: Arc<App>) -> Result<()> {
+    // Register commands
+
     app.commands
         .register_global_commands(&app.discord, app.application_id)
         .await
         .context("Failed to register slash commands")?;
+
+    // Shard
 
     let intents = Intents::GUILDS
         | Intents::GUILD_MESSAGES
@@ -105,7 +113,11 @@ async fn run_app(app: Arc<App>) -> Result<()> {
 
     let mut shard = Shard::new(ShardId::ONE, Config::get().discord_token.clone(), intents);
 
+    // Ready
+
     app.services.on_ready();
+
+    // API
 
     tokio::spawn({
         let app = app.clone();
@@ -113,6 +125,8 @@ async fn run_app(app: Arc<App>) -> Result<()> {
             start_api(app).await;
         }
     });
+
+    // Event handler
 
     info!("Starting gateway connection");
     while let Some(item) = shard.next_event(EventTypeFlags::all()).await {
@@ -123,6 +137,21 @@ async fn run_app(app: Arc<App>) -> Result<()> {
                 continue;
             }
         };
+
+        if matches!(event, Event::Ready(_)) {
+            // Presence
+            // TODO: this should be moved in ready.rs (but we need to Arc the shard)
+
+            let activity = MinimalActivity {
+                name: Config::DOMAIN.to_string(),
+                kind: ActivityType::Playing,
+                url: None,
+            };
+            let presence = UpdatePresence::new(vec![activity.into()], false, None, Status::Online)
+                .expect("Invalid presence");
+
+            shard.command(&presence);
+        }
 
         app.discord_cache.update(&event);
         app.set_gateway_latency(shard.latency().average()).await;
