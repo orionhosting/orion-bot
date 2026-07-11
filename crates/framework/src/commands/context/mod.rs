@@ -135,6 +135,39 @@ impl<'a, App> CommandContext<'a, App> {
         Ok(())
     }
 
+    /// Update the message a component is attached to.
+    pub async fn update_message(&self, reply: Reply) -> Result<()> {
+        if self.has_sent_initial_response.swap(true, Ordering::SeqCst) {
+            anyhow::bail!("initial response already sent; cannot update_message");
+        }
+
+        let mut builder = InteractionResponseDataBuilder::new()
+            .flags(reply.flags)
+            .allowed_mentions(reply.allowed_mentions.unwrap_or_default());
+
+        if let Some(content) = reply.content {
+            builder = builder.content(content);
+        }
+        if !reply.embeds.is_empty() {
+            builder = builder.embeds(reply.embeds);
+        }
+        if !reply.components.is_empty() {
+            builder = builder.components(reply.components);
+        }
+
+        let response = InteractionResponse {
+            kind: InteractionResponseType::UpdateMessage,
+            data: Some(builder.build()),
+        };
+
+        self.interaction_client()
+            .create_response(self.interaction.id, &self.interaction.token, &response)
+            .await
+            .context("failed to send interaction update response")?;
+
+        Ok(())
+    }
+
     /// Send the initial interaction response and return the created `Message`.
     pub async fn reply_with_response(&self, reply: Reply) -> Result<Message> {
         self.reply(reply).await?;

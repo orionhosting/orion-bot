@@ -28,4 +28,10 @@ pub trait Command<App: Send + Sync + 'static>: Send + Sync {
         let _ = ctx;
         Ok(())
     }
+
+    /// Handle a component interaction.
+    async fn handle_component(&self, ctx: &CommandContext<'_, App>) -> CommandResult {
+        let _ = ctx;
+        Ok(())
+    }
 }
