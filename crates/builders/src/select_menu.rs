@@ -1,14 +1,14 @@
 use twilight_model::channel::message::component::{SelectMenu, SelectMenuOption, SelectMenuType};
 
-/// Builder for select menu options.
-pub struct SelectMenuOptionBuilder {
+/// Builder for string select menu options.
+pub struct StringSelectMenuOptionBuilder {
     label: String,
     value: String,
     description: Option<String>,
     default: bool,
 }
 
-impl SelectMenuOptionBuilder {
+impl StringSelectMenuOptionBuilder {
     pub fn new() -> Self {
         Self {
             label: String::new(),
@@ -49,14 +49,14 @@ impl SelectMenuOptionBuilder {
     }
 }
 
-impl Default for SelectMenuOptionBuilder {
+impl Default for StringSelectMenuOptionBuilder {
     fn default() -> Self {
         Self::new()
     }
 }
 
-/// Builder for select menus.
-pub struct SelectMenuBuilder {
+/// Builder for string select menus.
+pub struct StringSelectMenuBuilder {
     custom_id: String,
     options: Vec<SelectMenuOption>,
     placeholder: Option<String>,
@@ -65,7 +65,7 @@ pub struct SelectMenuBuilder {
     disabled: bool,
 }
 
-impl SelectMenuBuilder {
+impl StringSelectMenuBuilder {
     pub fn new() -> Self {
         Self {
             custom_id: String::new(),
@@ -84,9 +84,10 @@ impl SelectMenuBuilder {
 
     pub fn add_option<F>(mut self, f: F) -> Self
     where
-        F: FnOnce(SelectMenuOptionBuilder) -> SelectMenuOptionBuilder,
+        F: FnOnce(StringSelectMenuOptionBuilder) -> StringSelectMenuOptionBuilder,
     {
-        self.options.push(f(SelectMenuOptionBuilder::new()).build());
+        self.options
+            .push(f(StringSelectMenuOptionBuilder::new()).build());
         self
     }
 
@@ -127,7 +128,7 @@ impl SelectMenuBuilder {
     }
 }
 
-impl Default for SelectMenuBuilder {
+impl Default for StringSelectMenuBuilder {
     fn default() -> Self {
         Self::new()
     }
