@@ -30,6 +30,7 @@
         "bot.title": "Discord-Bot"
     },
     "troubleshoot": {
-        "description": "Erhalten Sie Hilfe bei der Lösung Ihrer Probleme mit unseren Diensten"
+        "description": "Erhalten Sie Hilfe bei der Lösung Ihrer Probleme mit unseren Diensten",
+        "return": "Zurück"
     }
 }

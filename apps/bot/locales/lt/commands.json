@@ -30,6 +30,7 @@
         "bot.title": "Discord botas"
     },
     "troubleshoot": {
-        "description": "Gaukite pagalbos sprendžiant problemas, susijusias su mūsų paslaugomis"
+        "description": "Gaukite pagalbos sprendžiant problemas, susijusias su mūsų paslaugomis",
+        "return": "Grįžti"
     }
 }
