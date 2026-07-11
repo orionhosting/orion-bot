@@ -1,6 +1,7 @@
 use twilight_model::channel::message::component::{ActionRow, Component};
 
 use crate::button::ButtonBuilder;
+use crate::select_menu::SelectMenuBuilder;
 
 /// Builder for action rows.
 pub struct ActionRowBuilder {
@@ -20,6 +21,15 @@ impl ActionRowBuilder {
     {
         self.components
             .push(Component::Button(f(ButtonBuilder::new()).build()));
+        self
+    }
+
+    pub fn add_select_menu<F>(mut self, f: F) -> Self
+    where
+        F: FnOnce(SelectMenuBuilder) -> SelectMenuBuilder,
+    {
+        self.components
+            .push(Component::SelectMenu(f(SelectMenuBuilder::new()).build()));
         self
     }
 
