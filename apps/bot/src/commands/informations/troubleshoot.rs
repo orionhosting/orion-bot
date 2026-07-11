@@ -3,7 +3,6 @@ use crate::commands::prelude::*;
 /// help user to find errors in his server
 pub struct TroubleshootCommand;
 
-use twilight_model::channel::message::component::ButtonStyle;
 use twilight_model::application::interaction::InteractionData;
 
 use serde_json::Value;
