@@ -1,0 +1,58 @@
+{
+  "home": {
+    "title": "# <:orion:1495838128580329542> Orion - Resolución de problemas",
+    "message": "> ¡Hola! Estoy aquí para ayudarte a resolver problemas comunes con tus servicios de Orion Hosting.\n\n**¿Cómo funciona?**\nSelecciona una categoría a continuación para iniciar un diagnóstico automatizado. Si tu problema persiste después de estas verificaciones, siempre puedes pedir ayuda en <#1307513861695606834> o abrir un ticket en <#1307061230145507410>.",
+    "options": {
+      "crash": {
+        "label": "Mi servidor no se inicia o se bloquea",
+        "next": {
+          "title": "## Mi servidor no se inicia",
+          "message": "Un servidor que se niega a iniciarse a menudo se debe a un error de código, una configuración faltante o una falta de recursos. ¿Qué error ves en tu consola?",
+          "options": {
+            "module_not_found": {
+              "label": "Módulo no encontrado",
+              "message": "**Ejemplo:** `Cannot find module` o `ModuleNotFoundError`\n\nEsto significa que no está instalada una dependencia requerida por tu código.\n\n**Solución:**\nVe a la pestaña **Startup** en tu panel de control. En el campo **Additional Node/Python Packages**, ingresa los nombres de los módulos que faltan separados por espacios. Se instalarán automáticamente la próxima vez que se inicie tu servidor."
+            },
+            "port_in_use": {
+              "label": "Puerto ya en uso (EADDRINUSE)",
+              "message": "**Ejemplo:** `Error: listen EADDRINUSE: address already in use`\n\nEsto sucede cuando otro proceso (o un servidor cerrado incorrectamente) ya está utilizando el puerto configurado. No puedes utilizar un puerto fijo elegido al azar.\n\n**Solución:**\nUtiliza el puerto de red que se te asignó en la pestaña **Network**. Asegúrate de que tu código utilice este puerto (a menudo accesible a través de `process.env.SERVER_PORT` dependiendo de tu lenguaje)."
+            },
+            "syntax_error": {
+              "label": "Error de sintaxis",
+              "message": "**Ejemplo:** `SyntaxError: Unexpected token`\n\nTu código contiene un error tipográfico, falta un punto y coma o un error de formato.\n\n**Solución:**\nLee atentamente el error en la consola: a menudo indica el nombre del archivo y el número de línea exacto donde se encuentra el error. Corrige el código y reinicia el servidor."
+            },
+            "insufficient_memory": {
+              "label": "Memoria insuficiente (OOM)",
+              "message": "**Ejemplo:** `Killed` o `Out of Memory`\n\nEl servidor ha superado su límite de RAM asignada.\n\n**Solución:**\nVerifica tus gráficos de consumo. Si estás alcanzando el límite (100%), tendrás que optimizar tu código para consumir menos recursos o actualizar tu plan."
+            },
+            "stay_starting_state": {
+              "label": "El servidor se queda en estado de inicio",
+              "message": "**Ejemplo:** El estado del servidor permanece como \"Starting\" (Iniciando) durante mucho tiempo.\n\nEsto puede suceder. Puedes agregar una declaración de impresión (print) en tu código (según el lenguaje) para verificar si tu script se ha iniciado correctamente. Si tu código se está ejecutando pero el servidor sigue en el estado de inicio, no te preocupes, no hay ningún problema con tu servidor."
+            }
+          }
+        }
+      },
+      "inaccessible": {
+        "label": "Mi servidor está en línea pero inaccesible",
+        "next": {
+          "title": "## Servidor inaccesible",
+          "message": "Tu servidor aparece como \"Online\" en el panel, pero no puedes conectarte a él o el sitio web no carga. ¿Qué tipo de problema estás experimentando?",
+          "options": {
+            "502": {
+              "label": "Error 502 (Bad Gateway)",
+              "message": "El error **502 Bad Gateway** significa que nuestro proxy no puede comunicarse con tu servidor.\n\n**Solución:**\n1. Asegúrate de que tu servidor esté escuchando en la dirección IP correcta: debe escuchar en `0.0.0.0` (todas las interfaces) y no en `127.0.0.1` o `localhost`.\n2. Verifica que el puerto configurado en tu código sea exactamente el mismo que el puerto de tu aplicación definido en la pestaña **Network**. Revisa tu código cuidadosamente porque no habrá ningún error en la consola."
+            },
+            "404": {
+              "label": "Error 404 (Not Found)",
+              "message": "El error **404 Not Found** indica que la página o URL solicitada no existe.\n\n**Solución:**\nVerifica la URL exacta que ingresaste. Si el problema persiste, asegúrate de que tu código maneje correctamente las rutas HTTP (ej., `/`) y que no haya problemas de mayúsculas y minúsculas en los nombres de tus archivos."
+            },
+            "domain_not_pointing": {
+              "label": "Problema con mi dominio personalizado",
+              "message": "Tu dominio personalizado muestra un error o no apunta correctamente a tu servidor.\n\n**Solución:**\nVerifica la configuración DNS de tu dominio. Asegúrate de que los registros (A o CNAME) apunten al objetivo correcto. Puedes encontrar instrucciones precisas de configuración DNS en la configuración de tu servidor en el [Dashboard de Orion](https://orionhost.xyz/dashboard/servers)."
+            }
+          }
+        }
+      }
+    }
+  }
+}

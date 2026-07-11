@@ -1,0 +1,58 @@
+{
+  "home": {
+    "title": "# <:orion:1495838128580329542> Orion - Troubleshooting",
+    "message": "> Hello! I'm here to help you resolve common issues with your Orion Hosting services.\n\n**How does it work?**\nSelect a category below to start an automated diagnostic. If your issue persists after these checks, you can always ask for help in <#1307513861695606834> or open a ticket in <#1307061230145507410>.",
+    "options": {
+      "crash": {
+        "label": "My server won't start or keeps crashing",
+        "next": {
+          "title": "## My server won't start",
+          "message": "A server that refuses to start is often due to a code error, a missing configuration, or a lack of resources. What error do you see in your console?",
+          "options": {
+            "module_not_found": {
+              "label": "Module not found",
+              "message": "**Example:** `Cannot find module` or `ModuleNotFoundError`\n\nThis means a dependency required by your code is not installed.\n\n**Solution:**\nGo to the **Startup** tab in your control panel. In the **Additional Node/Python Packages** field, enter the names of the missing modules separated by spaces. They will be automatically installed the next time your server starts."
+            },
+            "port_in_use": {
+              "label": "Port already in use (EADDRINUSE)",
+              "message": "**Example:** `Error: listen EADDRINUSE: address already in use`\n\nThis happens when another process (or an improperly closed server) is already using the configured port. You cannot use a fixed port chosen at random.\n\n**Solution:**\nUse the network port assigned to you in the **Network** tab. Ensure your code uses this port (accessible via `process.env.SERVER_PORT` depending on your language)."
+            },
+            "syntax_error": {
+              "label": "Syntax error",
+              "message": "**Example:** `SyntaxError: Unexpected token`\n\nYour code contains a typo, a missing semicolon, or a formatting error.\n\n**Solution:**\nCarefully read the error in the console: it often indicates the file name and the exact line number where the error is located. Fix the code and restart the server."
+            },
+            "insufficient_memory": {
+              "label": "Insufficient memory (OOM)",
+              "message": "**Example:** `Killed` or `Out of Memory`\n\nThe server has exceeded its allocated RAM limit.\n\n**Solution:**\nCheck your consumption graphs. If you are hitting the limit (100%), you will need to either optimize your code to consume fewer resources or upgrade your plan."
+            },
+            "stay_starting_state": {
+              "label": "Server stays in starting state",
+              "message": "**Example:** Server status remains as \"Starting\" for a long time.\n\nThis can happen. You can add a print statement in your code (depending on the language) to verify if your script has started correctly. If your code is running but the server is still in the starting state, don't worry, there isn't any problem with your server."
+            }
+          }
+        }
+      },
+      "inaccessible": {
+        "label": "My server is online but inaccessible",
+        "next": {
+          "title": "## Server inaccessible",
+          "message": "Your server shows as \"Online\" on the panel, but you cannot connect to it or the website won't load. What kind of issue are you experiencing?",
+          "options": {
+            "502": {
+              "label": "502 Error (Bad Gateway)",
+              "message": "The **502 Bad Gateway** error means our proxy cannot communicate with your server.\n\n**Solution:**\n1. Ensure your server is listening on the correct IP address: it has to listen on `0.0.0.0` (all interfaces) and not on `127.0.0.1` or `localhost`.\n2. Verify that the port configured in your code is exactly the same as your application port defined in the **Network** tab. Check your code carefully because there won't be any error in the console."
+            },
+            "404": {
+              "label": "404 Error (Not Found)",
+              "message": "The **404 Not Found** error indicates that the requested page or URL does not exist.\n\n**Solution:**\nCheck the exact URL you entered. If the issue persists, ensure your code correctly handles HTTP routes (e.g., `/`) and that there are no case-sensitivity issues in your file names."
+            },
+            "domain_not_pointing": {
+              "label": "Issue with my custom domain",
+              "message": "Your custom domain shows an error or does not point correctly to your server.\n\n**Solution:**\nCheck your domain's DNS configuration. Ensure the records (A or CNAME) point to the correct target. You can find precise DNS configuration instructions in your server settings on the [Orion Dashboard](https://orionhost.xyz/dashboard/servers)."
+            }
+          }
+        }
+      }
+    }
+  }
+}
