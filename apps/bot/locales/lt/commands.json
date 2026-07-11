@@ -28,5 +28,8 @@
         "services.title": "Paslaugų delsos laikai",
         "services.more": "Naudokite būsenos puslapį, jei norite daugiau informacijos apie mūsų paslaugas.",
         "bot.title": "Discord botas"
+    },
+    "troubleshoot": {
+        "description": "Gaukite pagalbos sprendžiant problemas, susijusias su mūsų paslaugomis"
     }
 }

@@ -28,5 +28,8 @@
         "services.title": "Latencias de los servicios",
         "services.more": "Usa la página de estado para más detalles sobre nuestros servicios.",
         "bot.title": "Bot de Discord"
+    },
+    "troubleshoot": {
+        "description": "Obtén ayuda para resolver tus problemas con nuestros servicios"
     }
 }
