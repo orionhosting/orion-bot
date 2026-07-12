@@ -1,9 +1,9 @@
 {
     "account": {
-        "description": "Pasiekite savo paskyrą",
+        "description": "Prisijunkite prie savo paskyros",
         "card.title.your_account": "Jūsų paskyra",
         "card.content.credits": "Turite **{amount}** kreditų.",
-        "no_account.content.guide": "Neturite paskyros, sukurkite ją prisijungę prie valdymo skydelio.",
+        "no_account.content.guide": "Neturite paskyros. Sukurkite ją prisijungę prie valdymo skydelio.",
         "no_account.buttons.create_account": "Sukurti paskyrą"
     },
     "docs": {
@@ -12,21 +12,21 @@
         "err_invalid_page": "Neteisingas puslapis!"
     },
     "help": {
-        "description": "Gaukite pagalbą apie Orion",
+        "description": "Gaukite pagalbą dėl Orion",
         "title": "Pagalba",
-        "hosting.title": "Talpinimas",
-        "hosting.description": "Orion Hosting yra nemokama ir patikima talpinimo paslauga, leidžianti paleisti jūsų projektus neišleidžiant nė cento.",
+        "hosting.title": "Hostingas",
+        "hosting.description": "„Orion Hosting“ yra nemokama ir patikima hostingo paslauga, leidžianti paleisti jūsų projektus neišleidžiant nė cento.",
         "hosting.buttons.create_free_server": "Sukurti nemokamą serverį",
         "services.title": "Mūsų paslaugos",
-        "services.website": "Svetainė",
-        "services.buttons.join_support": "Prisijungti prie pagalbos",
+        "services.website": "Interneto svetainė",
+        "services.buttons.join_support": "Prisijungti prie pagalbos serverio",
         "services.buttons.add_bot": "Pridėti botą prie savo paskyros"
     },
     "ping": {
         "description": "Sužinokite mūsų paslaugų būseną",
-        "pinging": "Skaičiuojamas mūsų paslaugų delsos laikas...",
-        "services.title": "Paslaugų delsos laikai",
-        "services.more": "Naudokite būsenos puslapį, jei norite daugiau informacijos apie mūsų paslaugas.",
+        "pinging": "Skaičiuojama mūsų paslaugų delsa...",
+        "services.title": "Paslaugų delsos",
+        "services.more": "Naudokite būsenos puslapį, jei norite gauti daugiau informacijos apie mūsų paslaugas.",
         "bot.title": "Discord botas"
     },
     "troubleshoot": {
