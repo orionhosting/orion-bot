@@ -48,6 +48,8 @@ impl Config {
     pub const BOT_API_URL: &'static str = "https://bot.orionhost.xyz";
 
     // Discord links
+    // pub const HELP_CODES_CHANNEL_ID: u64 = 1307513861695606834;
+    // pub const TICKETS_CHANNEL_ID: u64 = 1307061230145507410;
     pub const SUPPORT_INVITE: &'static str = "https://discord.gg/gzYKugxq9a";
     pub const BOT_INVITE: &'static str = "https://discord.com/oauth2/authorize?client_id=1306868952793747546&scope=bot+applications.commands&permissions=8";
     pub const TICKETS_PANEL_URL: &'static str =

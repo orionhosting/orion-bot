@@ -31,6 +31,62 @@
     },
     "troubleshoot": {
         "description": "Obtenez de l'aide pour résoudre vos problèmes sur nos services",
-        "return": "Retour"
+        "return": "Retour",
+        "home": {
+            "title": "# {emoji} Orion - Dépannage",
+            "message": "> Bonjour ! Je suis là pour vous aider à résoudre les problèmes courants liés à vos services Orion Hosting.\n\n**Comment ça marche ?**\nSélectionnez une catégorie ci-dessous pour lancer un diagnostic automatisé. Si votre problème persiste après ces vérifications, vous pouvez toujours demander de l'aide dans <#1307513861695606834> ou ouvrir un ticket dans <#1307061230145507410>.",
+            "options": {
+                "crash": {
+                    "label": "Mon serveur ne démarre pas ou plante sans cesse",
+                    "next": {
+                        "title": "## Mon serveur ne démarre pas",
+                        "message": "Un serveur qui refuse de démarrer est souvent dû à une erreur de code, à une configuration manquante ou à un manque de ressources. Quelle erreur voyez-vous dans votre console ?",
+                        "options": {
+                            "module_not_found": {
+                                "label": "Module introuvable",
+                                "message": "**Exemple :** `Cannot find module` ou `ModuleNotFoundError`\n\nCela signifie qu'une dépendance requise par votre code n'est pas installée.\n\n**Solution :**\nAllez dans l'onglet **Startup** de votre panneau de contrôle. Dans le champ **Additional Node/Python Packages**, saisissez les noms des modules manquants séparés par des espaces. Ils seront installés automatiquement à la prochaine démarrage de votre serveur."
+                            },
+                            "port_in_use": {
+                                "label": "Port déjà utilisé (EADDRINUSE)",
+                                "message": "**Exemple :** `Error: listen EADDRINUSE: address already in use`\n\nCela se produit lorsqu'un autre processus (ou un serveur mal fermé) utilise déjà le port configuré. Vous ne pouvez pas utiliser un port fixe choisi au hasard.\n\n**Solution :**\nUtilisez le port réseau qui vous a été attribué dans l'onglet **Network**. Assurez-vous que votre code utilise ce port (accessible via `process.env.SERVER_PORT` selon votre langage)."
+                            },
+                            "syntax_error": {
+                                "label": "Erreur de syntaxe",
+                                "message": "**Exemple :** `SyntaxError: Unexpected token`\n\nVotre code contient une faute de frappe, un point-virgule manquant ou une erreur de formatage.\n\n**Solution :**\nLisez attentivement l'erreur dans la console : elle indique souvent le nom du fichier et le numéro de ligne exact où se trouve l'erreur. Corrigez le code et redémarrez le serveur."
+                            },
+                            "insufficient_memory": {
+                                "label": "Mémoire insuffisante (OOM)",
+                                "message": "**Exemple :** `Killed` ou `Out of Memory`\n\nLe serveur a dépassé la limite de RAM allouée.\n\n**Solution :**\nVérifiez vos graphiques de consommation. Si vous atteignez la limite (100 %), vous devrez soit optimiser votre code pour consommer moins de ressources, soit mettre à niveau votre offre."
+                            },
+                            "stay_starting_state": {
+                                "label": "Le serveur reste en état de démarrage",
+                                "message": "**Exemple :** L'état du serveur reste sur \"Starting\" pendant longtemps.\n\nCela peut arriver. Vous pouvez ajouter une instruction d'affichage dans votre code (selon le langage) pour vérifier si votre script a bien démarré. Si votre code fonctionne mais que le serveur reste en état de démarrage, ne vous inquiétez pas : il n'y a pas de problème avec votre serveur."
+                            }
+                        }
+                    }
+                },
+                "inaccessible": {
+                    "label": "Mon serveur est en ligne mais inaccessible",
+                    "next": {
+                        "title": "## Serveur inaccessible",
+                        "message": "Votre serveur apparaît comme \"Online\" dans le panneau, mais vous ne pouvez pas vous y connecter ou le site web ne se charge pas. Quel type de problème rencontrez-vous ?",
+                        "options": {
+                            "502": {
+                                "label": "Erreur 502 (Bad Gateway)",
+                                "message": "L'erreur **502 Bad Gateway** signifie que notre proxy ne peut pas communiquer avec votre serveur.\n\n**Solution :**\n1. Assurez-vous que votre serveur écoute bien sur la bonne adresse IP : il doit écouter sur `0.0.0.0` (toutes les interfaces) et non sur `127.0.0.1` ou `localhost`.\n2. Vérifiez que le port configuré dans votre code est exactement le même que celui de votre application défini dans l'onglet **Network**. Vérifiez votre code attentivement, car il n'y aura pas d'erreur dans la console."
+                            },
+                            "404": {
+                                "label": "Erreur 404 (Introuvable)",
+                                "message": "L'erreur **404 Not Found** indique que la page ou l'URL demandée n'existe pas.\n\n**Solution :**\nVérifiez l'URL exacte que vous avez saisie. Si le problème persiste, assurez-vous que votre code gère correctement les routes HTTP (par exemple `/`) et qu'il n'y a pas de souci de casse dans les noms de vos fichiers."
+                            },
+                            "domain_not_pointing": {
+                                "label": "Problème avec mon domaine personnalisé",
+                                "message": "Votre domaine personnalisé affiche une erreur ou ne pointe pas correctement vers votre serveur.\n\n**Solution :**\nVérifiez la configuration DNS de votre domaine. Assurez-vous que les enregistrements (A ou CNAME) pointent vers la bonne cible. Vous trouverez des instructions précises sur la configuration DNS dans les paramètres de votre serveur sur le [tableau de bord Orion](https://orionhost.xyz/dashboard/servers)."
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

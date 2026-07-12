@@ -31,6 +31,62 @@
     },
     "troubleshoot": {
         "description": "Erhalten Sie Hilfe bei der Lösung Ihrer Probleme mit unseren Diensten",
-        "return": "Zurück"
+        "return": "Zurück",
+        "home": {
+            "title": "# {emoji} Orion - Fehlerbehebung",
+            "message": "> Hallo! Ich bin hier, um Ihnen zu helfen, häufige Probleme mit Ihren Orion Hosting-Diensten zu lösen.\n\n**Wie funktioniert das?**\nWählen Sie unten eine Kategorie aus, um eine automatisierte Diagnose zu starten. Wenn Ihr Problem nach diesen Prüfungen weiterhin besteht, können Sie jederzeit Hilfe in <#1307513861695606834> anfordern oder ein Ticket in <#1307061230145507410> öffnen.",
+            "options": {
+                "crash": {
+                    "label": "Mein Server startet nicht oder stürzt ständig ab",
+                    "next": {
+                        "title": "## Mein Server startet nicht",
+                        "message": "Ein Server, der sich nicht starten lässt, ist oft auf einen Codefehler, eine fehlende Konfiguration oder fehlende Ressourcen zurückzuführen. Welche Fehlermeldung sehen Sie in Ihrer Konsole?",
+                        "options": {
+                            "module_not_found": {
+                                "label": "Modul nicht gefunden",
+                                "message": "**Beispiel:** `Cannot find module` oder `ModuleNotFoundError`\n\nDas bedeutet, dass eine Abhängigkeit, die Ihr Code benötigt, nicht installiert ist.\n\n**Lösung:**\nÖffnen Sie den Reiter **Startup** in Ihrem Control Panel. Im Feld **Zusätzliche Node/Python-Pakete** geben Sie die Namen der fehlenden Module getrennt durch Leerzeichen ein. Sie werden beim nächsten Start Ihres Servers automatisch installiert."
+                            },
+                            "port_in_use": {
+                                "label": "Port bereits verwendet (EADDRINUSE)",
+                                "message": "**Beispiel:** `Error: listen EADDRINUSE: address already in use`\n\nDas passiert, wenn ein anderer Prozess (oder ein falsch geschlossener Server) den konfigurierten Port bereits verwendet. Sie können keinen zufällig ausgewählten festen Port verwenden.\n\n**Lösung:**\nVerwenden Sie den Ihnen zugewiesenen Netzwerkport auf dem Reiter **Network**. Stellen Sie sicher, dass Ihr Code diesen Port verwendet (je nach Sprache über `process.env.SERVER_PORT`)."
+                            },
+                            "syntax_error": {
+                                "label": "Syntaxfehler",
+                                "message": "**Beispiel:** `SyntaxError: Unexpected token`\n\nIhr Code enthält einen Tippfehler, ein fehlendes Semikolon oder einen Formatierungsfehler.\n\n**Lösung:**\nLesen Sie die Fehlermeldung in der Konsole sorgfältig durch: Sie zeigt oft den Dateinamen und die genaue Zeilennummer an, an der der Fehler aufgetreten ist. Korrigieren Sie den Code und starten Sie den Server neu."
+                            },
+                            "insufficient_memory": {
+                                "label": "Unzureichender Arbeitsspeicher (OOM)",
+                                "message": "**Beispiel:** `Killed` oder `Out of Memory`\n\nDer Server hat das zugewiesene RAM-Limit überschritten.\n\n**Lösung:**\nPrüfen Sie Ihre Verbrauchsdiagramme. Wenn Sie die Grenze von 100 % erreichen, müssen Sie Ihren Code so optimieren, dass er weniger Ressourcen verbraucht, oder ein höheres Paket wählen."
+                            },
+                            "stay_starting_state": {
+                                "label": "Der Server bleibt im Startzustand",
+                                "message": "**Beispiel:** Der Serverstatus bleibt lange Zeit auf \"Starting\".\n\nDas kann passieren. Sie können in Ihrem Code eine Ausgabefunktion einfügen (je nach Sprache), um zu prüfen, ob Ihr Skript korrekt gestartet wurde. Wenn Ihr Code läuft, aber der Server weiterhin im Startzustand bleibt, machen Sie sich keine Sorgen – das ist kein Problem mit Ihrem Server."
+                            }
+                        }
+                    }
+                },
+                "inaccessible": {
+                    "label": "Mein Server ist online, aber nicht erreichbar",
+                    "next": {
+                        "title": "## Server nicht erreichbar",
+                        "message": "Ihr Server wird im Panel als \"Online\" angezeigt, aber Sie können sich nicht damit verbinden oder die Website lädt nicht. Welches Problem haben Sie?",
+                        "options": {
+                            "502": {
+                                "label": "502 Fehler (Bad Gateway)",
+                                "message": "Der **502 Bad Gateway**-Fehler bedeutet, dass unser Proxy nicht mit Ihrem Server kommunizieren kann.\n\n**Lösung:**\n1. Stellen Sie sicher, dass Ihr Server auf der richtigen IP-Adresse lauscht: Er muss auf `0.0.0.0` (allen Schnittstellen) und nicht auf `127.0.0.1` oder `localhost` hören.\n2. Verifizieren Sie, dass der in Ihrem Code konfigurierte Port exakt mit dem Anwendungsport übereinstimmt, der auf dem Reiter **Network** festgelegt ist. Prüfen Sie Ihren Code sorgfältig, da in der Konsole keine Fehler angezeigt werden."
+                            },
+                            "404": {
+                                "label": "404 Fehler (Nicht gefunden)",
+                                "message": "Der **404 Not Found**-Fehler bedeutet, dass die angeforderte Seite oder URL nicht existiert.\n\n**Lösung:**\nPrüfen Sie die genaue URL, die Sie eingegeben haben. Wenn das Problem weiterhin besteht, stellen Sie sicher, dass Ihr Code die HTTP-Routen korrekt verarbeitet (z. B. `/`) und dass in Ihren Dateinamen keine Probleme mit der Groß-/Kleinschreibung auftreten."
+                            },
+                            "domain_not_pointing": {
+                                "label": "Problem mit meiner benutzerdefinierten Domain",
+                                "message": "Ihre benutzerdefinierte Domain zeigt einen Fehler an oder verweist nicht korrekt auf Ihren Server.\n\n**Lösung:**\nPrüfen Sie die DNS-Konfiguration Ihrer Domain. Stellen Sie sicher, dass die Einträge (A oder CNAME) auf das richtige Ziel zeigen. Detaillierte Anweisungen zur DNS-Konfiguration finden Sie in Ihren Servereinstellungen im [Orion Dashboard](https://orionhost.xyz/dashboard/servers)."
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
