@@ -15,6 +15,7 @@ pub fn all() -> Vec<Arc<dyn Command<App>>> {
         Arc::new(informations::help::HelpCommand),
         Arc::new(informations::account::AccountCommand),
         Arc::new(informations::docs::DocsCommand),
+        Arc::new(informations::troubleshoot::TroubleshootCommand),
         Arc::new(private::config::ConfigCommand),
         Arc::new(private::user::UserCommand),
         Arc::new(private::panels::PanelsCommand),

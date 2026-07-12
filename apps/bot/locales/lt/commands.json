@@ -28,5 +28,65 @@
         "services.title": "Paslaugų delsos laikai",
         "services.more": "Naudokite būsenos puslapį, jei norite daugiau informacijos apie mūsų paslaugas.",
         "bot.title": "Discord botas"
+    },
+    "troubleshoot": {
+        "description": "Gaukite pagalbos sprendžiant problemas, susijusias su mūsų paslaugomis",
+        "return": "Grįžti",
+        "home": {
+            "title": "# {emoji} Orion - Trikčių šalinimas",
+            "message": "> Sveiki! Aš čia, kad padėčiau išspręsti dažniausiai pasitaikančias problemas su jūsų Orion Hosting paslaugomis.\n\n**Kaip tai veikia?**\nPasirinkite kategoriją žemiau, kad pradėtumėte automatizuotą diagnostiką. Jei problema išlieka po šių patikrinimų, visada galite paprašyti pagalbos <#1307513861695606834> arba atidaryti aptarnavimo bilietą <#1307061230145507410>.",
+            "options": {
+                "crash": {
+                    "label": "Mano serveris neįsijungia arba nuolat užstringa",
+                    "next": {
+                        "title": "## Mano serveris neįsijungia",
+                        "message": "Serveris, kuris atsisako paleisti, dažniausiai yra dėl kodo klaidos, trūkstamos konfigūracijos arba išteklių trūkumo. Kokią klaidą matote konsolėje?",
+                        "options": {
+                            "module_not_found": {
+                                "label": "Nerastas modulis",
+                                "message": "**Pavyzdys:** `Cannot find module` arba `ModuleNotFoundError`\n\nTai reiškia, kad jūsų kode reikalinga priklausomybė nėra įdiegta.\n\n**Sprendimas:**\nEikite į **Startup** skiltį valdymo skydelyje. Lauke **Additional Node/Python Packages** įveskite trūkstamų modulių pavadinimus, atskirtus tarpais. Jie bus automatiškai įdiegti kitą kartą paleidus serverį."
+                            },
+                            "port_in_use": {
+                                "label": "Prievadas jau naudojamas (EADDRINUSE)",
+                                "message": "**Pavyzdys:** `Error: listen EADDRINUSE: address already in use`\n\nTai įvyksta, kai kitą procesą (arba neteisingai uždarytą serverį) jau naudoja sukonfigūruotas prievadas. Negalite naudoti atsitiktinai pasirinkto fiksuoto prievado.\n\n**Sprendimas:**\nNaudokite jums priskirtą tinklo prievadą **Network** skiltyje. Įsitikinkite, kad jūsų kodas naudoja šį prievadą (priklausomai nuo kalbos, per `process.env.SERVER_PORT`)."
+                            },
+                            "syntax_error": {
+                                "label": "Sintaksės klaida",
+                                "message": "**Pavyzdys:** `SyntaxError: Unexpected token`\n\nJūsų kode yra rašybos klaida, trūksta kabliataškio arba formatavimo klaida.\n\n**Sprendimas:**\nAtidžiai perskaitykite klaidą konsolėje: dažnai ji nurodo failo pavadinimą ir tikslią eilutės numerį, kurioje radosi problema. Ištaisyti kodą ir paleiskite serverį iš naujo."
+                            },
+                            "insufficient_memory": {
+                                "label": "Nepakanka atminties (OOM)",
+                                "message": "**Pavyzdys:** `Killed` arba `Out of Memory`\n\nServeris viršijo skirtą RAM limitą.\n\n**Sprendimas:**\nPeržiūrėkite savo suvartojimo grafikus. Jei artėjate prie ribos (100 %), turėsite optimizuoti kodą, kad jis sunaudotų mažiau išteklių, arba atnaujinti planą."
+                            },
+                            "stay_starting_state": {
+                                "label": "Serveris lieka paleidimo būsenoje",
+                                "message": "**Pavyzdys:** Serverio būsena ilgai išlieka \"Starting\".\n\nTai gali nutikti. Kode galite pridėti spausdinimo sakinį (priklausomai nuo kalbos), kad patikrintumėte, ar scenarijus paleistas teisingai. Jei jūsų kodas veikia, bet serveris vis tiek lieka paleidimo būsenoje, nesijaudinkite – tai nėra problema su jūsų serveriu."
+                            }
+                        }
+                    }
+                },
+                "inaccessible": {
+                    "label": "Mano serveris yra online, bet nepasiekiamas",
+                    "next": {
+                        "title": "## Serveris nepasiekiamas",
+                        "message": "Jūsų serveris skydelyje rodomas kaip \"Online\", tačiau jūs negalite prisijungti prie jo arba svetainė neįsikrauna. Kokia problema jums iškilo?",
+                        "options": {
+                            "502": {
+                                "label": "502 klaida (Bad Gateway)",
+                                "message": "**502 Bad Gateway** klaida reiškia, kad mūsų tarpinis serveris negali bendrauti su jūsų serveriu.\n\n**Sprendimas:**\n1. Įsitikinkite, kad jūsų serveris klauso tinkamo IP adreso: jis turi klausytis `0.0.0.0` (visuose sąsajose) ir ne `127.0.0.1` arba `localhost`.\n2. Patikrinkite, ar kode sukonfigūruotas prievadas tiksliai atitinka jūsų programos prievadą, nurodytą **Network** skiltyje. Atidžiai patikrinkite kodą, nes konsolėje nebebus jokių klaidų."
+                            },
+                            "404": {
+                                "label": "404 klaida (Nerasta)",
+                                "message": "**404 Not Found** klaida reiškia, kad užklausta puslapis arba URL neegzistuoja.\n\n**Sprendimas:**\nPatikrinkite tikslų URL, kurį įvedėte. Jei problema išlieka, įsitikinkite, kad jūsų kodas teisingai tvarko HTTP maršrutus (pvz., `/`) ir kad failų pavadinimuose nebūtų didžiųjų/mažųjų raidžių problemų."
+                            },
+                            "domain_not_pointing": {
+                                "label": "Problema su mano tinkintu domenu",
+                                "message": "Jūsų tinkintas domenas rodo klaidą arba neteisingai nukreipia į jūsų serverį.\n\n**Sprendimas:**\nPatikrinkite savo domeno DNS konfigūraciją. Įsitikinkite, kad įrašai (A arba CNAME) rodo į teisingą tikslą. Tikslias DNS konfigūracijos instrukcijas rasite savo serverio nustatymuose [Orion Dashboard](https://orionhost.xyz/dashboard/servers)."
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

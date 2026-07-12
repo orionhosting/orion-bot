@@ -19,6 +19,7 @@ pub async fn handle(app: Arc<App>, interaction: Interaction) -> Result<()> {
         InteractionType::ApplicationCommandAutocomplete => {
             handle_autocomplete(app, interaction).await
         }
+        InteractionType::MessageComponent => handle_component(app, interaction).await,
         _ => {}
     }
 
@@ -106,6 +107,58 @@ async fn handle_autocomplete(app: Arc<App>, interaction: Interaction) {
 
     if let Err(e) = command.handle_autocomplete(&cmd_ctx).await {
         error!(command = %command_name, error = %e, "Autocomplete failed");
+    }
+}
+
+/// Handle a component interaction.
+async fn handle_component(app: Arc<App>, interaction: Interaction) {
+    let Some(custom_id) = interaction.data.as_ref().and_then(|d| match d {
+        InteractionData::MessageComponent(d) => Some(d.custom_id.clone()),
+        _ => None,
+    }) else {
+        return;
+    };
+
+    let command_name = match custom_id.split_once('-') {
+        Some((cmd, _)) => cmd,
+        None => custom_id.as_str(),
+    };
+
+    let command = match app.commands.get(command_name) {
+        Some(c) => c,
+        None => {
+            warn!("Unknown command for component interaction: {command_name}");
+            return;
+        }
+    };
+
+    info!(
+        command = %command_name,
+        custom_id = %custom_id,
+        user_id = ?interaction.author_id().map(|v| v.get()),
+        "Component interaction",
+    );
+
+    let cmd_ctx = CommandContext::new(
+        app.clone(),
+        app.discord.clone(),
+        app.application_id,
+        &interaction,
+    );
+
+    if command.meta().owner_only
+        && !interaction
+            .author_id()
+            .is_some_and(|id| Config::is_bot_owner(id.get()))
+    {
+        // TODO: depending of the interaction, response should be handled differently
+        // send_error_response(&cmd_ctx, &CommandError::NotOwner).await;
+        return;
+    }
+
+    if let Err(e) = command.handle_component(&cmd_ctx).await {
+        error!(command = %command_name, error = %e, "Component interaction failed");
+        send_error_response(&cmd_ctx, &e).await;
     }
 }
 
