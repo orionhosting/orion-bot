@@ -146,6 +146,16 @@ async fn handle_component(app: Arc<App>, interaction: Interaction) {
         &interaction,
     );
 
+    if command.meta().owner_only
+        && !interaction
+            .author_id()
+            .is_some_and(|id| Config::is_bot_owner(id.get()))
+    {
+        // TODO: depending of the interaction, response should be handled differently
+        // send_error_response(&cmd_ctx, &CommandError::NotOwner).await;
+        return;
+    }
+
     if let Err(e) = command.handle_component(&cmd_ctx).await {
         error!(command = %command_name, error = %e, "Component interaction failed");
         send_error_response(&cmd_ctx, &e).await;
