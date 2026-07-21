@@ -12,7 +12,7 @@ framework = { workspace = true }
 builders = { workspace = true }
 orion-api = { workspace = true }
 
-rust_intl = "0.2.1"
+rust_intl = "0.2.2"
 
 tracing = { workspace = true }
 thiserror = { workspace = true }

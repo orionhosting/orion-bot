@@ -1928,9 +1928,9 @@ dependencies = [
 
 [[package]]
 name = "rust_intl"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f2f91667b70f78ce229c93647548b9fd36848e5c11450d590d857524da0e15c"
+checksum = "1d21044b2f642dfd93f089951fce3e2538f3c2a77bf7010b3e7732d89e3546af"
 dependencies = [
  "fixed_decimal",
  "icu_decimal",
@@ -1941,9 +1941,9 @@ dependencies = [
 
 [[package]]
 name = "rust_intl_macros"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09c78ded3a47132fe9e636b9ff00df83e8b229cc773aa843a9d72b725010ff57"
+checksum = "d1b3dc141942bd464365a14fc71df92f073444fb5bbb94f42de8083a41a0f41d"
 dependencies = [
  "proc-macro2",
  "quote",
