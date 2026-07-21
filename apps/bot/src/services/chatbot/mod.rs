@@ -168,8 +168,8 @@ impl ChatbotService {
                     history_lines.push(line);
                     history_length += content.len();
 
-                    // Limit to 10 messages maximum
-                    if history_lines.len() >= 10 {
+                    // Limit to 7 messages maximum
+                    if history_lines.len() >= 7 {
                         break;
                     }
                 }
