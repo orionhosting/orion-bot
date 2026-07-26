@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # local ci
 cargo fmt --all --check
 cargo clippy --all-targets --locked -- -D warnings

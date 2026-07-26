@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
 cargo build --release --target x86_64-unknown-linux-musl
 mv target/x86_64-unknown-linux-musl/release/bot orion-bot
 
