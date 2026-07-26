@@ -32,6 +32,20 @@ command_meta! {
                         .required(true),
                     CommandOptionBuilder::string("reason", "Only needed when the type is custom")
                         .max_length(500)
+                ]),
+            CommandOptionBuilder::subcommand("credits-remove", "Remove credits")
+                .options([
+                    CommandOptionBuilder::user("user", "The user")
+                        .required(true),
+                    CommandOptionBuilder::integer("type", "The type")
+                        .add_choice_int("Other", CreditTransactionType::Custom as i64)
+                        .required(true),
+                    CommandOptionBuilder::integer("amount", "The quantity")
+                        .min_value_int(1)
+                        .max_value_int(10000)
+                        .required(true),
+                    CommandOptionBuilder::string("reason", "Only needed when the type is custom")
+                        .max_length(500)
                 ])
        ])
 }
@@ -77,14 +91,18 @@ impl Command<App> for ConfigCommand {
                 )
                 .await?;
             }
-            Some("credits-add") => {
+            Some(t @ "credits-add") | Some(t @ "credits-remove") => {
+                let is_add = t == "credits-add";
                 let user = ctx.require_user_option("user")?;
-                let kind = ctx.require_integer_option("type")?;
-                let amount = ctx.require_integer_option("amount")?;
-                let reason = ctx.get_string_option("reason").map(|v| v.trim());
 
+                let kind = ctx.require_integer_option("type")?;
                 let kind = CreditTransactionType::try_from(kind as u8)
                     .unwrap_or(CreditTransactionType::Custom);
+
+                let amount = ctx.require_integer_option("amount")?;
+                let amount = if is_add { amount } else { -amount };
+
+                let reason = ctx.get_string_option("reason").map(|v| v.trim());
 
                 match kind {
                     CreditTransactionType::Custom => {
@@ -120,15 +138,21 @@ impl Command<App> for ConfigCommand {
 
                 match result {
                     Ok(result) => {
+                        let prefix = if is_add {
+                            "Credits added"
+                        } else {
+                            "Credits removed"
+                        };
+
                         ctx.edit_reply(Reply::new().content(format!(
-                            "Credits added, the user has now {} credits. Transaction ID: {}",
+                            "{prefix}, the user has now {} credits. Transaction ID: {}",
                             result.user_credits, result.transaction_id
                         )))
                         .await?;
                     }
                     Err(OrionError::Api { status, message }) => {
                         ctx.edit_reply(Reply::new().content(format!(
-                            "Failed to add credits: {} (status: {})",
+                            "Failed to change credits: {} (status: {})",
                             message.unwrap_or("no message".into()),
                             status
                         )))
