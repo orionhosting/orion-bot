@@ -40,4 +40,4 @@ The API follows the [OpenAPI v3.1 specification](https://spec.openapis.org/oas/v
 ## Deployment
 
 - `npm i -g @orionhosting/cli` (install the CLI if not already done)
-- `bash deploy.bash` (deploy to Orion)
+- `bash deploy.sh` (deploy to Orion)
