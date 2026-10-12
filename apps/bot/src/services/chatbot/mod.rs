@@ -47,6 +47,12 @@ pub struct ChatbotService {
     last_ratelimit_alert_at: Mutex<u64>,
 }
 
+impl Default for ChatbotService {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl ChatbotService {
     pub const COOLDOWN: u64 = 1_500;
 
