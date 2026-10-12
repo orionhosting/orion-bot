@@ -127,46 +127,50 @@ fn build_rules_components() -> Vec<Component> {
         .add_media_gallery(|m| m.add_item_from_url(Config::BANNER_URL))
         .add_text_display(|d| {
             d.content(
-                "## Civilized behavior\n\
-                Treat other members with respect, even if you disagree with them.\n\
-                Hate speech, harassment and discriminatory language are strictly forbidden.\n\
-                Please respect the decisions of moderators and administrators.",
+                "## 1. Respectful behavior\n\
+                Treat everyone with respect, even when opinions differ.\n\
+                Hate speech, harassment, discrimination, and personal attacks are not allowed.\n\
+                Avoid unnecessary drama, excessive controversial discussions, or conflicts brought in from other communities.\n\
+                Handle disagreements calmly, and contact a moderator if needed.\n\
+                Respect moderator and administrator decisions.",
             )
         })
         .add_separator(|s| s.divider(true).spacing(SeparatorSpacingSize::Large))
         .add_text_display(|d| {
             d.content(
-                "## Privacy\n\
-                Private messages (PMs) may not be used for advertising or spamming.\n\
-                Invitations to other servers or the addition of bots are strictly forbidden.\n\
-                Members' personal information must not be shared without their consent.",
+                "## 2. Chat guidelines\n\
+                English and French are the community's official languages.\n\
+                Do your best to use either language so everyone can participate and moderators can understand conversations.\n\
+                Keep messages relevant and avoid flooding the chat, excessive capital letters, or repeated animated emotes.\n\
+                Advertising, unsolicited promotions, and NSFW content are prohibited.\n\
+                Do not post malicious links or other harmful content.",
             )
         })
         .add_separator(|s| s.divider(true).spacing(SeparatorSpacingSize::Large))
         .add_text_display(|d| {
             d.content(
-                "## Security\n\
-                Passwords and other sensitive information must not be shared.\n\
-                Report any suspicious behavior or fraudulent activity to the moderators.",
+                "## 3. Usernames and identity\n\
+                Choose a display name that is readable, easy to mention, and reasonably sized.\n\
+                Do not impersonate other members, staff, or other individuals.",
             )
         })
         .add_separator(|s| s.divider(true).spacing(SeparatorSpacingSize::Large))
         .add_text_display(|d| {
             d.content(
-                "## Other\n\
-                Links to malicious websites or explicit content are prohibited.\n\
-                Excessive use of capital letters, spam or animated emotes is prohibited.\n\
-                Members may not impersonate others.",
+                "## 4. Privacy and security\n\
+                Never share passwords, credentials, or other sensitive information.\n\
+                Do not disclose another person's private information without their permission.\n\
+                Do not use private messages to spam, advertise, or send unsolicited server invitations.\n\
+                Unauthorized server invitations and bot additions are prohibited.\n\
+                Report suspicious behavior, scams, or security concerns to the moderation team.",
             )
         })
         .add_separator(|s| s.divider(true).spacing(SeparatorSpacingSize::Large))
         .add_text_display(|d| {
             d.content(
-                "## Civilized behavior\n\
-                Treat other members with respect, even if you disagree with them.\n\
-                Hate speech, harassment and discriminatory language are strictly forbidden.\n\
-                Personal conflicts should be resolved privately or with the help of a moderator.\n\
-                Please respect the decisions of moderators and administrators.",
+                "## 5. Moderation\n\
+                Follow these guidelines across the community, including private messages where applicable.\n\
+                Moderators may take action when necessary to keep the community safe and welcoming.",
             )
         });
 
